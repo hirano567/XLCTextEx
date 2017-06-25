@@ -1,0 +1,1165 @@
+//	XLCTextEx_1.0x	:	PLibUCD
+
+//	PLibUCD:	PCompareStringUCD.cpp
+//
+#include "stdafx.h"
+
+NS_PLIB_UNICODE_BEGIN
+
+//typedef	PLib::PSSearchNumKey<UINT, T_PCSTR_U>	SCSTRMAP, *PSCSTRMAP;
+
+//======================================================================
+//	KanaTypeFolding
+//======================================================================
+//----------------------------------------------------------------------
+//	変換データ	ひらがな -> カタカナ
+//----------------------------------------------------------------------
+#ifdef	USETHIS
+SCSTRMAP	siCStrMapKanaType[]	=
+{
+	0x3041	/* HIRAGANA LETTER SMALL A */	,	TQU("\x30A1")	/* KATAKANA LETTER SMALL A */	,
+	0x3042	/* HIRAGANA LETTER A */	,	TQU("\x30A2")	/* KATAKANA LETTER A */	,
+	0x3043	/* HIRAGANA LETTER SMALL I */	,	TQU("\x30A3")	/* KATAKANA LETTER SMALL I */	,
+	0x3044	/* HIRAGANA LETTER I */	,	TQU("\x30A4")	/* KATAKANA LETTER I */	,
+	0x3045	/* HIRAGANA LETTER SMALL U */	,	TQU("\x30A5")	/* KATAKANA LETTER SMALL U */	,
+	0x3046	/* HIRAGANA LETTER U */	,	TQU("\x30A6")	/* KATAKANA LETTER U */	,
+	0x3047	/* HIRAGANA LETTER SMALL E */	,	TQU("\x30A7")	/* KATAKANA LETTER SMALL E */	,
+	0x3048	/* HIRAGANA LETTER E */	,	TQU("\x30A8")	/* KATAKANA LETTER E */	,
+	0x3049	/* HIRAGANA LETTER SMALL O */	,	TQU("\x30A9")	/* KATAKANA LETTER SMALL O */	,
+	0x304A	/* HIRAGANA LETTER O */	,	TQU("\x30AA")	/* KATAKANA LETTER O */	,
+	0x304B	/* HIRAGANA LETTER KA */	,	TQU("\x30AB")	/* KATAKANA LETTER KA */	,
+	0x304C	/* HIRAGANA LETTER GA */	,	TQU("\x30AC")	/* KATAKANA LETTER GA */	,
+	0x304D	/* HIRAGANA LETTER KI */	,	TQU("\x30AD")	/* KATAKANA LETTER KI */	,
+	0x304E	/* HIRAGANA LETTER GI */	,	TQU("\x30AE")	/* KATAKANA LETTER GI */	,
+	0x304F	/* HIRAGANA LETTER KU */	,	TQU("\x30AF")	/* KATAKANA LETTER KU */	,
+	0x3050	/* HIRAGANA LETTER GU */	,	TQU("\x30B0")	/* KATAKANA LETTER GU */	,
+	0x3051	/* HIRAGANA LETTER KE */	,	TQU("\x30B1")	/* KATAKANA LETTER KE */	,
+	0x3052	/* HIRAGANA LETTER GE */	,	TQU("\x30B2")	/* KATAKANA LETTER GE */	,
+	0x3053	/* HIRAGANA LETTER KO */	,	TQU("\x30B3")	/* KATAKANA LETTER KO */	,
+	0x3054	/* HIRAGANA LETTER GO */	,	TQU("\x30B4")	/* KATAKANA LETTER GO */	,
+	0x3055	/* HIRAGANA LETTER SA */	,	TQU("\x30B5")	/* KATAKANA LETTER SA */	,
+	0x3056	/* HIRAGANA LETTER ZA */	,	TQU("\x30B6")	/* KATAKANA LETTER ZA */	,
+	0x3057	/* HIRAGANA LETTER SI */	,	TQU("\x30B7")	/* KATAKANA LETTER SI */	,
+	0x3058	/* HIRAGANA LETTER ZI */	,	TQU("\x30B8")	/* KATAKANA LETTER ZI */	,
+	0x3059	/* HIRAGANA LETTER SU */	,	TQU("\x30B9")	/* KATAKANA LETTER SU */	,
+	0x305A	/* HIRAGANA LETTER ZU */	,	TQU("\x30BA")	/* KATAKANA LETTER ZU */	,
+	0x305B	/* HIRAGANA LETTER SE */	,	TQU("\x30BB")	/* KATAKANA LETTER SE */	,
+	0x305C	/* HIRAGANA LETTER ZE */	,	TQU("\x30BC")	/* KATAKANA LETTER ZE */	,
+	0x305D	/* HIRAGANA LETTER SO */	,	TQU("\x30BD")	/* KATAKANA LETTER SO */	,
+	0x305E	/* HIRAGANA LETTER ZO */	,	TQU("\x30BE")	/* KATAKANA LETTER ZO */	,
+	0x305F	/* HIRAGANA LETTER TA */	,	TQU("\x30BF")	/* KATAKANA LETTER TA */	,
+	0x3060	/* HIRAGANA LETTER DA */	,	TQU("\x30C0")	/* KATAKANA LETTER DA */	,
+	0x3061	/* HIRAGANA LETTER TI */	,	TQU("\x30C1")	/* KATAKANA LETTER TI */	,
+	0x3062	/* HIRAGANA LETTER DI */	,	TQU("\x30C2")	/* KATAKANA LETTER DI */	,
+	0x3063	/* HIRAGANA LETTER SMALL TU */	,	TQU("\x30C3")	/* KATAKANA LETTER SMALL TU */	,
+	0x3064	/* HIRAGANA LETTER TU */	,	TQU("\x30C4")	/* KATAKANA LETTER TU */	,
+	0x3065	/* HIRAGANA LETTER DU */	,	TQU("\x30C5")	/* KATAKANA LETTER DU */	,
+	0x3066	/* HIRAGANA LETTER TE */	,	TQU("\x30C6")	/* KATAKANA LETTER TE */	,
+	0x3067	/* HIRAGANA LETTER DE */	,	TQU("\x30C7")	/* KATAKANA LETTER DE */	,
+	0x3068	/* HIRAGANA LETTER TO */	,	TQU("\x30C8")	/* KATAKANA LETTER TO */	,
+	0x3069	/* HIRAGANA LETTER DO */	,	TQU("\x30C9")	/* KATAKANA LETTER DO */	,
+	0x306A	/* HIRAGANA LETTER NA */	,	TQU("\x30CA")	/* KATAKANA LETTER NA */	,
+	0x306B	/* HIRAGANA LETTER NI */	,	TQU("\x30CB")	/* KATAKANA LETTER NI */	,
+	0x306C	/* HIRAGANA LETTER NU */	,	TQU("\x30CC")	/* KATAKANA LETTER NU */	,
+	0x306D	/* HIRAGANA LETTER NE */	,	TQU("\x30CD")	/* KATAKANA LETTER NE */	,
+	0x306E	/* HIRAGANA LETTER NO */	,	TQU("\x30CE")	/* KATAKANA LETTER NO */	,
+	0x306F	/* HIRAGANA LETTER HA */	,	TQU("\x30CF")	/* KATAKANA LETTER HA */	,
+	0x3070	/* HIRAGANA LETTER BA */	,	TQU("\x30D0")	/* KATAKANA LETTER BA */	,
+	0x3071	/* HIRAGANA LETTER PA */	,	TQU("\x30D1")	/* KATAKANA LETTER PA */	,
+	0x3072	/* HIRAGANA LETTER HI */	,	TQU("\x30D2")	/* KATAKANA LETTER HI */	,
+	0x3073	/* HIRAGANA LETTER BI */	,	TQU("\x30D3")	/* KATAKANA LETTER BI */	,
+	0x3074	/* HIRAGANA LETTER PI */	,	TQU("\x30D4")	/* KATAKANA LETTER PI */	,
+	0x3075	/* HIRAGANA LETTER HU */	,	TQU("\x30D5")	/* KATAKANA LETTER HU */	,
+	0x3076	/* HIRAGANA LETTER BU */	,	TQU("\x30D6")	/* KATAKANA LETTER BU */	,
+	0x3077	/* HIRAGANA LETTER PU */	,	TQU("\x30D7")	/* KATAKANA LETTER PU */	,
+	0x3078	/* HIRAGANA LETTER HE */	,	TQU("\x30D8")	/* KATAKANA LETTER HE */	,
+	0x3079	/* HIRAGANA LETTER BE */	,	TQU("\x30D9")	/* KATAKANA LETTER BE */	,
+	0x307A	/* HIRAGANA LETTER PE */	,	TQU("\x30DA")	/* KATAKANA LETTER PE */	,
+	0x307B	/* HIRAGANA LETTER HO */	,	TQU("\x30DB")	/* KATAKANA LETTER HO */	,
+	0x307C	/* HIRAGANA LETTER BO */	,	TQU("\x30DC")	/* KATAKANA LETTER BO */	,
+	0x307D	/* HIRAGANA LETTER PO */	,	TQU("\x30DD")	/* KATAKANA LETTER PO */	,
+	0x307E	/* HIRAGANA LETTER MA */	,	TQU("\x30DE")	/* KATAKANA LETTER MA */	,
+	0x307F	/* HIRAGANA LETTER MI */	,	TQU("\x30DF")	/* KATAKANA LETTER MI */	,
+	0x3080	/* HIRAGANA LETTER MU */	,	TQU("\x30E0")	/* KATAKANA LETTER MU */	,
+	0x3081	/* HIRAGANA LETTER ME */	,	TQU("\x30E1")	/* KATAKANA LETTER ME */	,
+	0x3082	/* HIRAGANA LETTER MO */	,	TQU("\x30E2")	/* KATAKANA LETTER MO */	,
+	0x3083	/* HIRAGANA LETTER SMALL YA */	,	TQU("\x30E3")	/* KATAKANA LETTER SMALL YA */	,
+	0x3084	/* HIRAGANA LETTER YA */	,	TQU("\x30E4")	/* KATAKANA LETTER YA */	,
+	0x3085	/* HIRAGANA LETTER SMALL YU */	,	TQU("\x30E5")	/* KATAKANA LETTER SMALL YU */	,
+	0x3086	/* HIRAGANA LETTER YU */	,	TQU("\x30E6")	/* KATAKANA LETTER YU */	,
+	0x3087	/* HIRAGANA LETTER SMALL YO */	,	TQU("\x30E7")	/* KATAKANA LETTER SMALL YO */	,
+	0x3088	/* HIRAGANA LETTER YO */	,	TQU("\x30E8")	/* KATAKANA LETTER YO */	,
+	0x3089	/* HIRAGANA LETTER RA */	,	TQU("\x30E9")	/* KATAKANA LETTER RA */	,
+	0x308A	/* HIRAGANA LETTER RI */	,	TQU("\x30EA")	/* KATAKANA LETTER RI */	,
+	0x308B	/* HIRAGANA LETTER RU */	,	TQU("\x30EB")	/* KATAKANA LETTER RU */	,
+	0x308C	/* HIRAGANA LETTER RE */	,	TQU("\x30EC")	/* KATAKANA LETTER RE */	,
+	0x308D	/* HIRAGANA LETTER RO */	,	TQU("\x30ED")	/* KATAKANA LETTER RO */	,
+	0x308E	/* HIRAGANA LETTER SMALL WA */	,	TQU("\x30EE")	/* KATAKANA LETTER SMALL WA */	,
+	0x308F	/* HIRAGANA LETTER WA */	,	TQU("\x30EF")	/* KATAKANA LETTER WA */	,
+	0x3090	/* HIRAGANA LETTER WI */	,	TQU("\x30F0")	/* KATAKANA LETTER WI */	,
+	0x3091	/* HIRAGANA LETTER WE */	,	TQU("\x30F1")	/* KATAKANA LETTER WE */	,
+	0x3092	/* HIRAGANA LETTER WO */	,	TQU("\x30F2")	/* KATAKANA LETTER WO */	,
+	0x3093	/* HIRAGANA LETTER N */	,	TQU("\x30F3")	/* KATAKANA LETTER N */	,
+	0x3094	/* HIRAGANA LETTER VU */	,	TQU("\x30F4")	/* KATAKANA LETTER VU */	,
+	0x3095	/* HIRAGANA LETTER SMALL KA */	,	TQU("\x30F5")	/* KATAKANA LETTER SMALL KA */	,
+	0x3096	/* HIRAGANA LETTER SMALL KE */	,	TQU("\x30F6")	/* KATAKANA LETTER SMALL KE */	,
+	0x309D	/* HIRAGANA ITERATION MARK */	,	TQU("\x30FD")	/* KATAKANA ITERATION MARK */	,
+	0x309E	/* HIRAGANA VOICED ITERATION MARK */	,	TQU("\x30FE")	/* KATAKANA VOICED ITERATION MARK */	,
+};
+#endif
+
+#ifdef	USETHIS
+UINT	KanaTypeFoldingCpList3041[]	= { 0x30A1, 0 };	//	KATAKANA LETTER SMALL A
+UINT	KanaTypeFoldingCpList3042[]	= { 0x30A2, 0 };	//	KATAKANA LETTER A
+UINT	KanaTypeFoldingCpList3043[]	= { 0x30A3, 0 };	//	KATAKANA LETTER SMALL I
+UINT	KanaTypeFoldingCpList3044[]	= { 0x30A4, 0 };	//	KATAKANA LETTER I
+UINT	KanaTypeFoldingCpList3045[]	= { 0x30A5, 0 };	//	KATAKANA LETTER SMALL U
+UINT	KanaTypeFoldingCpList3046[]	= { 0x30A6, 0 };	//	KATAKANA LETTER U
+UINT	KanaTypeFoldingCpList3047[]	= { 0x30A7, 0 };	//	KATAKANA LETTER SMALL E
+UINT	KanaTypeFoldingCpList3048[]	= { 0x30A8, 0 };	//	KATAKANA LETTER E
+UINT	KanaTypeFoldingCpList3049[]	= { 0x30A9, 0 };	//	KATAKANA LETTER SMALL O
+UINT	KanaTypeFoldingCpList304A[]	= { 0x30AA, 0 };	//	KATAKANA LETTER O
+UINT	KanaTypeFoldingCpList304B[]	= { 0x30AB, 0 };	//	KATAKANA LETTER KA
+UINT	KanaTypeFoldingCpList304C[]	= { 0x30AC, 0 };	//	KATAKANA LETTER GA
+UINT	KanaTypeFoldingCpList304D[]	= { 0x30AD, 0 };	//	KATAKANA LETTER KI
+UINT	KanaTypeFoldingCpList304E[]	= { 0x30AE, 0 };	//	KATAKANA LETTER GI
+UINT	KanaTypeFoldingCpList304F[]	= { 0x30AF, 0 };	//	KATAKANA LETTER KU
+UINT	KanaTypeFoldingCpList3050[]	= { 0x30B0, 0 };	//	KATAKANA LETTER GU
+UINT	KanaTypeFoldingCpList3051[]	= { 0x30B1, 0 };	//	KATAKANA LETTER KE
+UINT	KanaTypeFoldingCpList3052[]	= { 0x30B2, 0 };	//	KATAKANA LETTER GE
+UINT	KanaTypeFoldingCpList3053[]	= { 0x30B3, 0 };	//	KATAKANA LETTER KO
+UINT	KanaTypeFoldingCpList3054[]	= { 0x30B4, 0 };	//	KATAKANA LETTER GO
+UINT	KanaTypeFoldingCpList3055[]	= { 0x30B5, 0 };	//	KATAKANA LETTER SA
+UINT	KanaTypeFoldingCpList3056[]	= { 0x30B6, 0 };	//	KATAKANA LETTER ZA
+UINT	KanaTypeFoldingCpList3057[]	= { 0x30B7, 0 };	//	KATAKANA LETTER SI
+UINT	KanaTypeFoldingCpList3058[]	= { 0x30B8, 0 };	//	KATAKANA LETTER ZI
+UINT	KanaTypeFoldingCpList3059[]	= { 0x30B9, 0 };	//	KATAKANA LETTER SU
+UINT	KanaTypeFoldingCpList305A[]	= { 0x30BA, 0 };	//	KATAKANA LETTER ZU
+UINT	KanaTypeFoldingCpList305B[]	= { 0x30BB, 0 };	//	KATAKANA LETTER SE
+UINT	KanaTypeFoldingCpList305C[]	= { 0x30BC, 0 };	//	KATAKANA LETTER ZE
+UINT	KanaTypeFoldingCpList305D[]	= { 0x30BD, 0 };	//	KATAKANA LETTER SO
+UINT	KanaTypeFoldingCpList305E[]	= { 0x30BE, 0 };	//	KATAKANA LETTER ZO
+UINT	KanaTypeFoldingCpList305F[]	= { 0x30BF, 0 };	//	KATAKANA LETTER TA
+UINT	KanaTypeFoldingCpList3060[]	= { 0x30C0, 0 };	//	KATAKANA LETTER DA
+UINT	KanaTypeFoldingCpList3061[]	= { 0x30C1, 0 };	//	KATAKANA LETTER TI
+UINT	KanaTypeFoldingCpList3062[]	= { 0x30C2, 0 };	//	KATAKANA LETTER DI
+UINT	KanaTypeFoldingCpList3063[]	= { 0x30C3, 0 };	//	KATAKANA LETTER SMALL TU
+UINT	KanaTypeFoldingCpList3064[]	= { 0x30C4, 0 };	//	KATAKANA LETTER TU
+UINT	KanaTypeFoldingCpList3065[]	= { 0x30C5, 0 };	//	KATAKANA LETTER DU
+UINT	KanaTypeFoldingCpList3066[]	= { 0x30C6, 0 };	//	KATAKANA LETTER TE
+UINT	KanaTypeFoldingCpList3067[]	= { 0x30C7, 0 };	//	KATAKANA LETTER DE
+UINT	KanaTypeFoldingCpList3068[]	= { 0x30C8, 0 };	//	KATAKANA LETTER TO
+UINT	KanaTypeFoldingCpList3069[]	= { 0x30C9, 0 };	//	KATAKANA LETTER DO
+UINT	KanaTypeFoldingCpList306A[]	= { 0x30CA, 0 };	//	KATAKANA LETTER NA
+UINT	KanaTypeFoldingCpList306B[]	= { 0x30CB, 0 };	//	KATAKANA LETTER NI
+UINT	KanaTypeFoldingCpList306C[]	= { 0x30CC, 0 };	//	KATAKANA LETTER NU
+UINT	KanaTypeFoldingCpList306D[]	= { 0x30CD, 0 };	//	KATAKANA LETTER NE
+UINT	KanaTypeFoldingCpList306E[]	= { 0x30CE, 0 };	//	KATAKANA LETTER NO
+UINT	KanaTypeFoldingCpList306F[]	= { 0x30CF, 0 };	//	KATAKANA LETTER HA
+UINT	KanaTypeFoldingCpList3070[]	= { 0x30D0, 0 };	//	KATAKANA LETTER BA
+UINT	KanaTypeFoldingCpList3071[]	= { 0x30D1, 0 };	//	KATAKANA LETTER PA
+UINT	KanaTypeFoldingCpList3072[]	= { 0x30D2, 0 };	//	KATAKANA LETTER HI
+UINT	KanaTypeFoldingCpList3073[]	= { 0x30D3, 0 };	//	KATAKANA LETTER BI
+UINT	KanaTypeFoldingCpList3074[]	= { 0x30D4, 0 };	//	KATAKANA LETTER PI
+UINT	KanaTypeFoldingCpList3075[]	= { 0x30D5, 0 };	//	KATAKANA LETTER HU
+UINT	KanaTypeFoldingCpList3076[]	= { 0x30D6, 0 };	//	KATAKANA LETTER BU
+UINT	KanaTypeFoldingCpList3077[]	= { 0x30D7, 0 };	//	KATAKANA LETTER PU
+UINT	KanaTypeFoldingCpList3078[]	= { 0x30D8, 0 };	//	KATAKANA LETTER HE
+UINT	KanaTypeFoldingCpList3079[]	= { 0x30D9, 0 };	//	KATAKANA LETTER BE
+UINT	KanaTypeFoldingCpList307A[]	= { 0x30DA, 0 };	//	KATAKANA LETTER PE
+UINT	KanaTypeFoldingCpList307B[]	= { 0x30DB, 0 };	//	KATAKANA LETTER HO
+UINT	KanaTypeFoldingCpList307C[]	= { 0x30DC, 0 };	//	KATAKANA LETTER BO
+UINT	KanaTypeFoldingCpList307D[]	= { 0x30DD, 0 };	//	KATAKANA LETTER PO
+UINT	KanaTypeFoldingCpList307E[]	= { 0x30DE, 0 };	//	KATAKANA LETTER MA
+UINT	KanaTypeFoldingCpList307F[]	= { 0x30DF, 0 };	//	KATAKANA LETTER MI
+UINT	KanaTypeFoldingCpList3080[]	= { 0x30E0, 0 };	//	KATAKANA LETTER MU
+UINT	KanaTypeFoldingCpList3081[]	= { 0x30E1, 0 };	//	KATAKANA LETTER ME
+UINT	KanaTypeFoldingCpList3082[]	= { 0x30E2, 0 };	//	KATAKANA LETTER MO
+UINT	KanaTypeFoldingCpList3083[]	= { 0x30E3, 0 };	//	KATAKANA LETTER SMALL YA
+UINT	KanaTypeFoldingCpList3084[]	= { 0x30E4, 0 };	//	KATAKANA LETTER YA
+UINT	KanaTypeFoldingCpList3085[]	= { 0x30E5, 0 };	//	KATAKANA LETTER SMALL YU
+UINT	KanaTypeFoldingCpList3086[]	= { 0x30E6, 0 };	//	KATAKANA LETTER YU
+UINT	KanaTypeFoldingCpList3087[]	= { 0x30E7, 0 };	//	KATAKANA LETTER SMALL YO
+UINT	KanaTypeFoldingCpList3088[]	= { 0x30E8, 0 };	//	KATAKANA LETTER YO
+UINT	KanaTypeFoldingCpList3089[]	= { 0x30E9, 0 };	//	KATAKANA LETTER RA
+UINT	KanaTypeFoldingCpList308A[]	= { 0x30EA, 0 };	//	KATAKANA LETTER RI
+UINT	KanaTypeFoldingCpList308B[]	= { 0x30EB, 0 };	//	KATAKANA LETTER RU
+UINT	KanaTypeFoldingCpList308C[]	= { 0x30EC, 0 };	//	KATAKANA LETTER RE
+UINT	KanaTypeFoldingCpList308D[]	= { 0x30ED, 0 };	//	KATAKANA LETTER RO
+UINT	KanaTypeFoldingCpList308E[]	= { 0x30EE, 0 };	//	KATAKANA LETTER SMALL WA
+UINT	KanaTypeFoldingCpList308F[]	= { 0x30EF, 0 };	//	KATAKANA LETTER WA
+UINT	KanaTypeFoldingCpList3090[]	= { 0x30F0, 0 };	//	KATAKANA LETTER WI
+UINT	KanaTypeFoldingCpList3091[]	= { 0x30F1, 0 };	//	KATAKANA LETTER WE
+UINT	KanaTypeFoldingCpList3092[]	= { 0x30F2, 0 };	//	KATAKANA LETTER WO
+UINT	KanaTypeFoldingCpList3093[]	= { 0x30F3, 0 };	//	KATAKANA LETTER N
+UINT	KanaTypeFoldingCpList3094[]	= { 0x30F4, 0 };	//	KATAKANA LETTER VU
+UINT	KanaTypeFoldingCpList3095[]	= { 0x30F5, 0 };	//	KATAKANA LETTER SMALL KA
+UINT	KanaTypeFoldingCpList3096[]	= { 0x30F6, 0 };	//	KATAKANA LETTER SMALL KE
+UINT	KanaTypeFoldingCpList309D[]	= { 0x30FD, 0 };	//	KATAKANA ITERATION MARK
+UINT	KanaTypeFoldingCpList309E[]	= { 0x30FE, 0 };	//	KATAKANA VOICED ITERATION MARK
+
+SCSTRMAP	siCStrMapKanaType[]	=
+{
+	0x3041	/* HIRAGANA LETTER SMALL A */	,	KanaTypeFoldingCpList3041	,	1,	TQU("\x30A1")	/* KATAKANA LETTER SMALL A */	,
+	0x3042	/* HIRAGANA LETTER A */	,	KanaTypeFoldingCpList3042	,	1,	TQU("\x30A2")	/* KATAKANA LETTER A */	,
+	0x3043	/* HIRAGANA LETTER SMALL I */	,	KanaTypeFoldingCpList3043	,	1,	TQU("\x30A3")	/* KATAKANA LETTER SMALL I */	,
+	0x3044	/* HIRAGANA LETTER I */	,	KanaTypeFoldingCpList3044	,	1,	TQU("\x30A4")	/* KATAKANA LETTER I */	,
+	0x3045	/* HIRAGANA LETTER SMALL U */	,	KanaTypeFoldingCpList3045	,	1,	TQU("\x30A5")	/* KATAKANA LETTER SMALL U */	,
+	0x3046	/* HIRAGANA LETTER U */	,	KanaTypeFoldingCpList3046	,	1,	TQU("\x30A6")	/* KATAKANA LETTER U */	,
+	0x3047	/* HIRAGANA LETTER SMALL E */	,	KanaTypeFoldingCpList3047	,	1,	TQU("\x30A7")	/* KATAKANA LETTER SMALL E */	,
+	0x3048	/* HIRAGANA LETTER E */	,	KanaTypeFoldingCpList3048	,	1,	TQU("\x30A8")	/* KATAKANA LETTER E */	,
+	0x3049	/* HIRAGANA LETTER SMALL O */	,	KanaTypeFoldingCpList3049	,	1,	TQU("\x30A9")	/* KATAKANA LETTER SMALL O */	,
+	0x304A	/* HIRAGANA LETTER O */	,	KanaTypeFoldingCpList304A	,	1,	TQU("\x30AA")	/* KATAKANA LETTER O */	,
+	0x304B	/* HIRAGANA LETTER KA */	,	KanaTypeFoldingCpList304B	,	1,	TQU("\x30AB")	/* KATAKANA LETTER KA */	,
+	0x304C	/* HIRAGANA LETTER GA */	,	KanaTypeFoldingCpList304C	,	1,	TQU("\x30AC")	/* KATAKANA LETTER GA */	,
+	0x304D	/* HIRAGANA LETTER KI */	,	KanaTypeFoldingCpList304D	,	1,	TQU("\x30AD")	/* KATAKANA LETTER KI */	,
+	0x304E	/* HIRAGANA LETTER GI */	,	KanaTypeFoldingCpList304E	,	1,	TQU("\x30AE")	/* KATAKANA LETTER GI */	,
+	0x304F	/* HIRAGANA LETTER KU */	,	KanaTypeFoldingCpList304F	,	1,	TQU("\x30AF")	/* KATAKANA LETTER KU */	,
+	0x3050	/* HIRAGANA LETTER GU */	,	KanaTypeFoldingCpList3050	,	1,	TQU("\x30B0")	/* KATAKANA LETTER GU */	,
+	0x3051	/* HIRAGANA LETTER KE */	,	KanaTypeFoldingCpList3051	,	1,	TQU("\x30B1")	/* KATAKANA LETTER KE */	,
+	0x3052	/* HIRAGANA LETTER GE */	,	KanaTypeFoldingCpList3052	,	1,	TQU("\x30B2")	/* KATAKANA LETTER GE */	,
+	0x3053	/* HIRAGANA LETTER KO */	,	KanaTypeFoldingCpList3053	,	1,	TQU("\x30B3")	/* KATAKANA LETTER KO */	,
+	0x3054	/* HIRAGANA LETTER GO */	,	KanaTypeFoldingCpList3054	,	1,	TQU("\x30B4")	/* KATAKANA LETTER GO */	,
+	0x3055	/* HIRAGANA LETTER SA */	,	KanaTypeFoldingCpList3055	,	1,	TQU("\x30B5")	/* KATAKANA LETTER SA */	,
+	0x3056	/* HIRAGANA LETTER ZA */	,	KanaTypeFoldingCpList3056	,	1,	TQU("\x30B6")	/* KATAKANA LETTER ZA */	,
+	0x3057	/* HIRAGANA LETTER SI */	,	KanaTypeFoldingCpList3057	,	1,	TQU("\x30B7")	/* KATAKANA LETTER SI */	,
+	0x3058	/* HIRAGANA LETTER ZI */	,	KanaTypeFoldingCpList3058	,	1,	TQU("\x30B8")	/* KATAKANA LETTER ZI */	,
+	0x3059	/* HIRAGANA LETTER SU */	,	KanaTypeFoldingCpList3059	,	1,	TQU("\x30B9")	/* KATAKANA LETTER SU */	,
+	0x305A	/* HIRAGANA LETTER ZU */	,	KanaTypeFoldingCpList305A	,	1,	TQU("\x30BA")	/* KATAKANA LETTER ZU */	,
+	0x305B	/* HIRAGANA LETTER SE */	,	KanaTypeFoldingCpList305B	,	1,	TQU("\x30BB")	/* KATAKANA LETTER SE */	,
+	0x305C	/* HIRAGANA LETTER ZE */	,	KanaTypeFoldingCpList305C	,	1,	TQU("\x30BC")	/* KATAKANA LETTER ZE */	,
+	0x305D	/* HIRAGANA LETTER SO */	,	KanaTypeFoldingCpList305D	,	1,	TQU("\x30BD")	/* KATAKANA LETTER SO */	,
+	0x305E	/* HIRAGANA LETTER ZO */	,	KanaTypeFoldingCpList305E	,	1,	TQU("\x30BE")	/* KATAKANA LETTER ZO */	,
+	0x305F	/* HIRAGANA LETTER TA */	,	KanaTypeFoldingCpList305F	,	1,	TQU("\x30BF")	/* KATAKANA LETTER TA */	,
+	0x3060	/* HIRAGANA LETTER DA */	,	KanaTypeFoldingCpList3060	,	1,	TQU("\x30C0")	/* KATAKANA LETTER DA */	,
+	0x3061	/* HIRAGANA LETTER TI */	,	KanaTypeFoldingCpList3061	,	1,	TQU("\x30C1")	/* KATAKANA LETTER TI */	,
+	0x3062	/* HIRAGANA LETTER DI */	,	KanaTypeFoldingCpList3062	,	1,	TQU("\x30C2")	/* KATAKANA LETTER DI */	,
+	0x3063	/* HIRAGANA LETTER SMALL TU */	,	KanaTypeFoldingCpList3063	,	1,	TQU("\x30C3")	/* KATAKANA LETTER SMALL TU */	,
+	0x3064	/* HIRAGANA LETTER TU */	,	KanaTypeFoldingCpList3064	,	1,	TQU("\x30C4")	/* KATAKANA LETTER TU */	,
+	0x3065	/* HIRAGANA LETTER DU */	,	KanaTypeFoldingCpList3065	,	1,	TQU("\x30C5")	/* KATAKANA LETTER DU */	,
+	0x3066	/* HIRAGANA LETTER TE */	,	KanaTypeFoldingCpList3066	,	1,	TQU("\x30C6")	/* KATAKANA LETTER TE */	,
+	0x3067	/* HIRAGANA LETTER DE */	,	KanaTypeFoldingCpList3067	,	1,	TQU("\x30C7")	/* KATAKANA LETTER DE */	,
+	0x3068	/* HIRAGANA LETTER TO */	,	KanaTypeFoldingCpList3068	,	1,	TQU("\x30C8")	/* KATAKANA LETTER TO */	,
+	0x3069	/* HIRAGANA LETTER DO */	,	KanaTypeFoldingCpList3069	,	1,	TQU("\x30C9")	/* KATAKANA LETTER DO */	,
+	0x306A	/* HIRAGANA LETTER NA */	,	KanaTypeFoldingCpList306A	,	1,	TQU("\x30CA")	/* KATAKANA LETTER NA */	,
+	0x306B	/* HIRAGANA LETTER NI */	,	KanaTypeFoldingCpList306B	,	1,	TQU("\x30CB")	/* KATAKANA LETTER NI */	,
+	0x306C	/* HIRAGANA LETTER NU */	,	KanaTypeFoldingCpList306C	,	1,	TQU("\x30CC")	/* KATAKANA LETTER NU */	,
+	0x306D	/* HIRAGANA LETTER NE */	,	KanaTypeFoldingCpList306D	,	1,	TQU("\x30CD")	/* KATAKANA LETTER NE */	,
+	0x306E	/* HIRAGANA LETTER NO */	,	KanaTypeFoldingCpList306E	,	1,	TQU("\x30CE")	/* KATAKANA LETTER NO */	,
+	0x306F	/* HIRAGANA LETTER HA */	,	KanaTypeFoldingCpList306F	,	1,	TQU("\x30CF")	/* KATAKANA LETTER HA */	,
+	0x3070	/* HIRAGANA LETTER BA */	,	KanaTypeFoldingCpList3070	,	1,	TQU("\x30D0")	/* KATAKANA LETTER BA */	,
+	0x3071	/* HIRAGANA LETTER PA */	,	KanaTypeFoldingCpList3071	,	1,	TQU("\x30D1")	/* KATAKANA LETTER PA */	,
+	0x3072	/* HIRAGANA LETTER HI */	,	KanaTypeFoldingCpList3072	,	1,	TQU("\x30D2")	/* KATAKANA LETTER HI */	,
+	0x3073	/* HIRAGANA LETTER BI */	,	KanaTypeFoldingCpList3073	,	1,	TQU("\x30D3")	/* KATAKANA LETTER BI */	,
+	0x3074	/* HIRAGANA LETTER PI */	,	KanaTypeFoldingCpList3074	,	1,	TQU("\x30D4")	/* KATAKANA LETTER PI */	,
+	0x3075	/* HIRAGANA LETTER HU */	,	KanaTypeFoldingCpList3075	,	1,	TQU("\x30D5")	/* KATAKANA LETTER HU */	,
+	0x3076	/* HIRAGANA LETTER BU */	,	KanaTypeFoldingCpList3076	,	1,	TQU("\x30D6")	/* KATAKANA LETTER BU */	,
+	0x3077	/* HIRAGANA LETTER PU */	,	KanaTypeFoldingCpList3077	,	1,	TQU("\x30D7")	/* KATAKANA LETTER PU */	,
+	0x3078	/* HIRAGANA LETTER HE */	,	KanaTypeFoldingCpList3078	,	1,	TQU("\x30D8")	/* KATAKANA LETTER HE */	,
+	0x3079	/* HIRAGANA LETTER BE */	,	KanaTypeFoldingCpList3079	,	1,	TQU("\x30D9")	/* KATAKANA LETTER BE */	,
+	0x307A	/* HIRAGANA LETTER PE */	,	KanaTypeFoldingCpList307A	,	1,	TQU("\x30DA")	/* KATAKANA LETTER PE */	,
+	0x307B	/* HIRAGANA LETTER HO */	,	KanaTypeFoldingCpList307B	,	1,	TQU("\x30DB")	/* KATAKANA LETTER HO */	,
+	0x307C	/* HIRAGANA LETTER BO */	,	KanaTypeFoldingCpList307C	,	1,	TQU("\x30DC")	/* KATAKANA LETTER BO */	,
+	0x307D	/* HIRAGANA LETTER PO */	,	KanaTypeFoldingCpList307D	,	1,	TQU("\x30DD")	/* KATAKANA LETTER PO */	,
+	0x307E	/* HIRAGANA LETTER MA */	,	KanaTypeFoldingCpList307E	,	1,	TQU("\x30DE")	/* KATAKANA LETTER MA */	,
+	0x307F	/* HIRAGANA LETTER MI */	,	KanaTypeFoldingCpList307F	,	1,	TQU("\x30DF")	/* KATAKANA LETTER MI */	,
+	0x3080	/* HIRAGANA LETTER MU */	,	KanaTypeFoldingCpList3080	,	1,	TQU("\x30E0")	/* KATAKANA LETTER MU */	,
+	0x3081	/* HIRAGANA LETTER ME */	,	KanaTypeFoldingCpList3081	,	1,	TQU("\x30E1")	/* KATAKANA LETTER ME */	,
+	0x3082	/* HIRAGANA LETTER MO */	,	KanaTypeFoldingCpList3082	,	1,	TQU("\x30E2")	/* KATAKANA LETTER MO */	,
+	0x3083	/* HIRAGANA LETTER SMALL YA */	,	KanaTypeFoldingCpList3083	,	1,	TQU("\x30E3")	/* KATAKANA LETTER SMALL YA */	,
+	0x3084	/* HIRAGANA LETTER YA */	,	KanaTypeFoldingCpList3084	,	1,	TQU("\x30E4")	/* KATAKANA LETTER YA */	,
+	0x3085	/* HIRAGANA LETTER SMALL YU */	,	KanaTypeFoldingCpList3085	,	1,	TQU("\x30E5")	/* KATAKANA LETTER SMALL YU */	,
+	0x3086	/* HIRAGANA LETTER YU */	,	KanaTypeFoldingCpList3086	,	1,	TQU("\x30E6")	/* KATAKANA LETTER YU */	,
+	0x3087	/* HIRAGANA LETTER SMALL YO */	,	KanaTypeFoldingCpList3087	,	1,	TQU("\x30E7")	/* KATAKANA LETTER SMALL YO */	,
+	0x3088	/* HIRAGANA LETTER YO */	,	KanaTypeFoldingCpList3088	,	1,	TQU("\x30E8")	/* KATAKANA LETTER YO */	,
+	0x3089	/* HIRAGANA LETTER RA */	,	KanaTypeFoldingCpList3089	,	1,	TQU("\x30E9")	/* KATAKANA LETTER RA */	,
+	0x308A	/* HIRAGANA LETTER RI */	,	KanaTypeFoldingCpList308A	,	1,	TQU("\x30EA")	/* KATAKANA LETTER RI */	,
+	0x308B	/* HIRAGANA LETTER RU */	,	KanaTypeFoldingCpList308B	,	1,	TQU("\x30EB")	/* KATAKANA LETTER RU */	,
+	0x308C	/* HIRAGANA LETTER RE */	,	KanaTypeFoldingCpList308C	,	1,	TQU("\x30EC")	/* KATAKANA LETTER RE */	,
+	0x308D	/* HIRAGANA LETTER RO */	,	KanaTypeFoldingCpList308D	,	1,	TQU("\x30ED")	/* KATAKANA LETTER RO */	,
+	0x308E	/* HIRAGANA LETTER SMALL WA */	,	KanaTypeFoldingCpList308E	,	1,	TQU("\x30EE")	/* KATAKANA LETTER SMALL WA */	,
+	0x308F	/* HIRAGANA LETTER WA */	,	KanaTypeFoldingCpList308F	,	1,	TQU("\x30EF")	/* KATAKANA LETTER WA */	,
+	0x3090	/* HIRAGANA LETTER WI */	,	KanaTypeFoldingCpList3090	,	1,	TQU("\x30F0")	/* KATAKANA LETTER WI */	,
+	0x3091	/* HIRAGANA LETTER WE */	,	KanaTypeFoldingCpList3091	,	1,	TQU("\x30F1")	/* KATAKANA LETTER WE */	,
+	0x3092	/* HIRAGANA LETTER WO */	,	KanaTypeFoldingCpList3092	,	1,	TQU("\x30F2")	/* KATAKANA LETTER WO */	,
+	0x3093	/* HIRAGANA LETTER N */	,	KanaTypeFoldingCpList3093	,	1,	TQU("\x30F3")	/* KATAKANA LETTER N */	,
+	0x3094	/* HIRAGANA LETTER VU */	,	KanaTypeFoldingCpList3094	,	1,	TQU("\x30F4")	/* KATAKANA LETTER VU */	,
+	0x3095	/* HIRAGANA LETTER SMALL KA */	,	KanaTypeFoldingCpList3095	,	1,	TQU("\x30F5")	/* KATAKANA LETTER SMALL KA */	,
+	0x3096	/* HIRAGANA LETTER SMALL KE */	,	KanaTypeFoldingCpList3096	,	1,	TQU("\x30F6")	/* KATAKANA LETTER SMALL KE */	,
+	0x309D	/* HIRAGANA ITERATION MARK */	,	KanaTypeFoldingCpList309D	,	1,	TQU("\x30FD")	/* KATAKANA ITERATION MARK */	,
+	0x309E	/* HIRAGANA VOICED ITERATION MARK */	,	KanaTypeFoldingCpList309E	,	1,	TQU("\x30FE")	/* KATAKANA VOICED ITERATION MARK */	,
+};
+
+int	nCStrMapKanaType	= sizeof(siCStrMapKanaType) / sizeof(SCSTRMAP);
+#endif
+
+
+//======================================================================
+//	KanaTypeFolding	(1)	1 つのコードページの変換
+//======================================================================
+//----------------------------------------------------------------------
+//	KanaTypeFolding	(1-1)
+//----------------------------------------------------------------------
+bool KanaTypeFolding(T_UCP* pcpDst, T_UCP cpSrc)
+{
+	const T_UCP	cpSrcRangeLast	= 0x3096;
+	const int	iKTypeInc		= 96;
+
+	if (!PUCD_BMPTABLE_IS_IKANATYPE_SET(cpSrc))	return false;
+
+	//	0x3041 - 0x3096 以外に変換の必要があるのは
+	//		0x309D ->  0x30FD
+	//		0x309E ->  0x30FE
+	//	の 2 組だけである。
+
+	if (cpSrc <= cpSrcRangeLast)
+	{
+		*pcpDst	= cpSrc + (T_UCP)iKTypeInc;
+		return true;
+	}
+	else if (cpSrc == 0x309D)
+	{
+		*pcpDst	= 0x30FD;
+		return true;
+	}
+	else if (cpSrc == 0x309E)
+	{
+		*pcpDst	= 0x30FE;
+		return true;
+	}
+	return false;
+}
+
+//----------------------------------------------------------------------
+//	KanaTypeFolding	(1-2)
+//----------------------------------------------------------------------
+T_UCP KanaTypeFolding(T_UCP cpSrc)
+{
+	const T_UCP	cpSrcRangeLast	= 0x3096;
+	const int	iKTypeInc		= 96;
+
+	if (!PUCD_BMPTABLE_IS_IKANATYPE_SET(cpSrc))	return cpSrc;
+
+	//	0x3041 - 0x3096 以外に変換の必要があるのは
+	//		0x309D ->  0x30FD
+	//		0x309E ->  0x30FE
+	//	の 2 組だけである。
+
+	if (cpSrc <= cpSrcRangeLast)
+	{
+		return (cpSrc + (T_UCP)iKTypeInc);
+	}
+	else if (cpSrc == 0x309D)
+	{
+		return 0x30FD;
+	}
+	else if (cpSrc == 0x309E)
+	{
+		return 0x30FE;
+	}
+	return cpSrc;
+}
+
+//======================================================================
+//	KanaTypeFolding	(2)	1 つのコードページ -> Unicode 文字列
+//	pBuf はバッファのポインタ。3 文字記入できるようにしておくこと。
+//======================================================================
+bool KanaTypeFolding(T_PSTR_U pBuf, T_UCP cpSrc)
+{
+	if (PLib::Unicode::ConvertFromCodepoint(pBuf, KanaTypeFolding(cpSrc)))	return true;
+	return false;
+}
+
+//======================================================================
+//	KanaTypeFolding	(3)	文字列の変換
+//======================================================================
+//----------------------------------------------------------------------
+//	KanaTypeFolding	(3-1)	Codepage 列の変換
+//----------------------------------------------------------------------
+bool KanaTypeFolding(UCPSTRING* pucsDst, UCPSTRING* pucsSrc)
+{
+	const T_UCP*	pcp;
+
+	for (pcp = pucsSrc->c_str(); *pcp; ++pcp)
+	{
+		pucsDst->append(1, KanaTypeFolding(*pcp));
+	}
+	return TRUE;
+}
+
+//----------------------------------------------------------------------
+//	KanaTypeFolding	(3-2)	Unicode 文字列 -> Codepage 列
+//----------------------------------------------------------------------
+bool KanaTypeFolding(UCPSTRING* pucsDst, T_PCSTR_U pSrcB, T_PCSTR_U pSrcE)
+{
+	UCPSTRING	ucsTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&ucsTemp, pSrcB, pSrcE))	return false;
+	return KanaTypeFolding(pucsDst, &ucsTemp);
+}
+
+bool KanaTypeFolding(UCPSTRING* pucsDst, T_PCSTR_U pszSrc)
+{
+	UCPSTRING	ucsTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&ucsTemp, pszSrc))	return false;
+	return KanaTypeFolding(pucsDst, &ucsTemp);
+}
+
+//----------------------------------------------------------------------
+//	KanaTypeFolding	(3-3)	Codepage 列 -> Unicode 文字列
+//----------------------------------------------------------------------
+bool KanaTypeFolding(T_STRING_U* pstrDst, UCPSTRING* pucsSrc)
+{
+	UCPSTRING	ucsTemp;
+
+	if (!KanaTypeFolding(&ucsTemp, pucsSrc))	return false;
+	return PLib::Unicode::ConvertFromCodepoint(pstrDst, &ucsTemp);
+}
+
+
+//----------------------------------------------------------------------
+//	KanaTypeFolding	(3-4)	Unicode 文字列 -> Unicode 文字列
+//----------------------------------------------------------------------
+bool KanaTypeFolding(T_STRING_U* pstrDst, T_PCSTR_U pSrcB, T_PCSTR_U pSrcE)
+{
+	UCPSTRING	ucsTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&ucsTemp, pSrcB, pSrcE))	return false;
+	return KanaTypeFolding(pstrDst, &ucsTemp);
+}
+
+bool KanaTypeFolding(T_STRING_U* pstrDst, T_PCSTR_U pszSrc)
+{
+	UCPSTRING	ucsTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&ucsTemp, pszSrc))	return false;
+	return KanaTypeFolding(pstrDst, &ucsTemp);
+}
+
+
+//======================================================================
+//	KanaWidthFolding
+//======================================================================
+//----------------------------------------------------------------------
+//	変換データ	半角と全角
+//----------------------------------------------------------------------
+#ifdef	USETHIS
+SCSTRMAP	siCStrMapKanaWidth[]	=
+{
+	0x3000	/* IDEOGRAPHIC SPACE */,	TQU("\x0020")	/* SPACE */,
+	0xFF01	/* FULLWIDTH EXCLAMATION MARK */,	TQU("\x0021")	/* EXCLAMATION MARK */,
+	0xFF02	/* FULLWIDTH QUOTATION MARK */,	TQU("\x0022")	/* QUOTATION MARK */,
+	0xFF03	/* FULLWIDTH NUMBER SIGN */,	TQU("\x0023")	/* NUMBER SIGN */,
+	0xFF04	/* FULLWIDTH DOLLAR SIGN */,	TQU("\x0024")	/* DOLLAR SIGN */,
+	0xFF05	/* FULLWIDTH PERCENT SIGN */,	TQU("\x0025")	/* PERCENT SIGN */,
+	0xFF06	/* FULLWIDTH AMPERSAND */,	TQU("\x0026")	/* AMPERSAND */,
+	0xFF07	/* FULLWIDTH APOSTROPHE */,	TQU("\x0027")	/* APOSTROPHE */,
+	0xFF08	/* FULLWIDTH LEFT PARENTHESIS */,	TQU("\x0028")	/* LEFT PARENTHESIS */,
+	0xFF09	/* FULLWIDTH RIGHT PARENTHESIS */,	TQU("\x0029")	/* RIGHT PARENTHESIS */,
+	0xFF0A	/* FULLWIDTH ASTERISK */,	TQU("\x002A")	/* ASTERISK */,
+	0xFF0B	/* FULLWIDTH PLUS SIGN */,	TQU("\x002B")	/* PLUS SIGN */,
+	0xFF0C	/* FULLWIDTH COMMA */,	TQU("\x002C")	/* COMMA */,
+	0xFF0D	/* FULLWIDTH HYPHEN-MINUS */,	TQU("\x002D")	/* HYPHEN-MINUS */,
+	0xFF0E	/* FULLWIDTH FULL STOP */,	TQU("\x002E")	/* FULL STOP */,
+	0xFF0F	/* FULLWIDTH SOLIDUS */,	TQU("\x002F")	/* SOLIDUS */,
+	0xFF10	/* FULLWIDTH DIGIT ZERO */,	TQU("\x0030")	/* DIGIT ZERO */,
+	0xFF11	/* FULLWIDTH DIGIT ONE */,	TQU("\x0031")	/* DIGIT ONE */,
+	0xFF12	/* FULLWIDTH DIGIT TWO */,	TQU("\x0032")	/* DIGIT TWO */,
+	0xFF13	/* FULLWIDTH DIGIT THREE */,	TQU("\x0033")	/* DIGIT THREE */,
+	0xFF14	/* FULLWIDTH DIGIT FOUR */,	TQU("\x0034")	/* DIGIT FOUR */,
+	0xFF15	/* FULLWIDTH DIGIT FIVE */,	TQU("\x0035")	/* DIGIT FIVE */,
+	0xFF16	/* FULLWIDTH DIGIT SIX */,	TQU("\x0036")	/* DIGIT SIX */,
+	0xFF17	/* FULLWIDTH DIGIT SEVEN */,	TQU("\x0037")	/* DIGIT SEVEN */,
+	0xFF18	/* FULLWIDTH DIGIT EIGHT */,	TQU("\x0038")	/* DIGIT EIGHT */,
+	0xFF19	/* FULLWIDTH DIGIT NINE */,	TQU("\x0039")	/* DIGIT NINE */,
+	0xFF1A	/* FULLWIDTH COLON */,	TQU("\x003A")	/* COLON */,
+	0xFF1B	/* FULLWIDTH SEMICOLON */,	TQU("\x003B")	/* SEMICOLON */,
+	0xFF1C	/* FULLWIDTH LESS-THAN SIGN */,	TQU("\x003C")	/* LESS-THAN SIGN */,
+	0xFF1D	/* FULLWIDTH EQUALS SIGN */,	TQU("\x003D")	/* EQUALS SIGN */,
+	0xFF1E	/* FULLWIDTH GREATER-THAN SIGN */,	TQU("\x003E")	/* GREATER-THAN SIGN */,
+	0xFF1F	/* FULLWIDTH QUESTION MARK */,	TQU("\x003F")	/* QUESTION MARK */,
+	0xFF20	/* FULLWIDTH COMMERCIAL AT */,	TQU("\x0040")	/* COMMERCIAL AT */,
+	0xFF21	/* FULLWIDTH LATIN CAPITAL LETTER A */,	TQU("\x0041")	/* LATIN CAPITAL LETTER A */,
+	0xFF22	/* FULLWIDTH LATIN CAPITAL LETTER B */,	TQU("\x0042")	/* LATIN CAPITAL LETTER B */,
+	0xFF23	/* FULLWIDTH LATIN CAPITAL LETTER C */,	TQU("\x0043")	/* LATIN CAPITAL LETTER C */,
+	0xFF24	/* FULLWIDTH LATIN CAPITAL LETTER D */,	TQU("\x0044")	/* LATIN CAPITAL LETTER D */,
+	0xFF25	/* FULLWIDTH LATIN CAPITAL LETTER E */,	TQU("\x0045")	/* LATIN CAPITAL LETTER E */,
+	0xFF26	/* FULLWIDTH LATIN CAPITAL LETTER F */,	TQU("\x0046")	/* LATIN CAPITAL LETTER F */,
+	0xFF27	/* FULLWIDTH LATIN CAPITAL LETTER G */,	TQU("\x0047")	/* LATIN CAPITAL LETTER G */,
+	0xFF28	/* FULLWIDTH LATIN CAPITAL LETTER H */,	TQU("\x0048")	/* LATIN CAPITAL LETTER H */,
+	0xFF29	/* FULLWIDTH LATIN CAPITAL LETTER I */,	TQU("\x0049")	/* LATIN CAPITAL LETTER I */,
+	0xFF2A	/* FULLWIDTH LATIN CAPITAL LETTER J */,	TQU("\x004A")	/* LATIN CAPITAL LETTER J */,
+	0xFF2B	/* FULLWIDTH LATIN CAPITAL LETTER K */,	TQU("\x004B")	/* LATIN CAPITAL LETTER K */,
+	0xFF2C	/* FULLWIDTH LATIN CAPITAL LETTER L */,	TQU("\x004C")	/* LATIN CAPITAL LETTER L */,
+	0xFF2D	/* FULLWIDTH LATIN CAPITAL LETTER M */,	TQU("\x004D")	/* LATIN CAPITAL LETTER M */,
+	0xFF2E	/* FULLWIDTH LATIN CAPITAL LETTER N */,	TQU("\x004E")	/* LATIN CAPITAL LETTER N */,
+	0xFF2F	/* FULLWIDTH LATIN CAPITAL LETTER O */,	TQU("\x004F")	/* LATIN CAPITAL LETTER O */,
+	0xFF30	/* FULLWIDTH LATIN CAPITAL LETTER P */,	TQU("\x0050")	/* LATIN CAPITAL LETTER P */,
+	0xFF31	/* FULLWIDTH LATIN CAPITAL LETTER Q */,	TQU("\x0051")	/* LATIN CAPITAL LETTER Q */,
+	0xFF32	/* FULLWIDTH LATIN CAPITAL LETTER R */,	TQU("\x0052")	/* LATIN CAPITAL LETTER R */,
+	0xFF33	/* FULLWIDTH LATIN CAPITAL LETTER S */,	TQU("\x0053")	/* LATIN CAPITAL LETTER S */,
+	0xFF34	/* FULLWIDTH LATIN CAPITAL LETTER T */,	TQU("\x0054")	/* LATIN CAPITAL LETTER T */,
+	0xFF35	/* FULLWIDTH LATIN CAPITAL LETTER U */,	TQU("\x0055")	/* LATIN CAPITAL LETTER U */,
+	0xFF36	/* FULLWIDTH LATIN CAPITAL LETTER V */,	TQU("\x0056")	/* LATIN CAPITAL LETTER V */,
+	0xFF37	/* FULLWIDTH LATIN CAPITAL LETTER W */,	TQU("\x0057")	/* LATIN CAPITAL LETTER W */,
+	0xFF38	/* FULLWIDTH LATIN CAPITAL LETTER X */,	TQU("\x0058")	/* LATIN CAPITAL LETTER X */,
+	0xFF39	/* FULLWIDTH LATIN CAPITAL LETTER Y */,	TQU("\x0059")	/* LATIN CAPITAL LETTER Y */,
+	0xFF3A	/* FULLWIDTH LATIN CAPITAL LETTER Z */,	TQU("\x005A")	/* LATIN CAPITAL LETTER Z */,
+	0xFF3B	/* FULLWIDTH LEFT SQUARE BRACKET */,	TQU("\x005B")	/* LEFT SQUARE BRACKET */,
+	0xFF3C	/* FULLWIDTH REVERSE SOLIDUS */,	TQU("\x005C")	/* REVERSE SOLIDUS */,
+	0xFF3D	/* FULLWIDTH RIGHT SQUARE BRACKET */,	TQU("\x005D")	/* RIGHT SQUARE BRACKET */,
+	0xFF3E	/* FULLWIDTH CIRCUMFLEX ACCENT */,	TQU("\x005E")	/* CIRCUMFLEX ACCENT */,
+	0xFF3F	/* FULLWIDTH LOW LINE */,	TQU("\x005F")	/* LOW LINE */,
+	0xFF40	/* FULLWIDTH GRAVE ACCENT */,	TQU("\x0060")	/* GRAVE ACCENT */,
+	0xFF41	/* FULLWIDTH LATIN SMALL LETTER A */,	TQU("\x0061")	/* LATIN SMALL LETTER A */,
+	0xFF42	/* FULLWIDTH LATIN SMALL LETTER B */,	TQU("\x0062")	/* LATIN SMALL LETTER B */,
+	0xFF43	/* FULLWIDTH LATIN SMALL LETTER C */,	TQU("\x0063")	/* LATIN SMALL LETTER C */,
+	0xFF44	/* FULLWIDTH LATIN SMALL LETTER D */,	TQU("\x0064")	/* LATIN SMALL LETTER D */,
+	0xFF45	/* FULLWIDTH LATIN SMALL LETTER E */,	TQU("\x0065")	/* LATIN SMALL LETTER E */,
+	0xFF46	/* FULLWIDTH LATIN SMALL LETTER F */,	TQU("\x0066")	/* LATIN SMALL LETTER F */,
+	0xFF47	/* FULLWIDTH LATIN SMALL LETTER G */,	TQU("\x0067")	/* LATIN SMALL LETTER G */,
+	0xFF48	/* FULLWIDTH LATIN SMALL LETTER H */,	TQU("\x0068")	/* LATIN SMALL LETTER H */,
+	0xFF49	/* FULLWIDTH LATIN SMALL LETTER I */,	TQU("\x0069")	/* LATIN SMALL LETTER I */,
+	0xFF4A	/* FULLWIDTH LATIN SMALL LETTER J */,	TQU("\x006A")	/* LATIN SMALL LETTER J */,
+	0xFF4B	/* FULLWIDTH LATIN SMALL LETTER K */,	TQU("\x006B")	/* LATIN SMALL LETTER K */,
+	0xFF4C	/* FULLWIDTH LATIN SMALL LETTER L */,	TQU("\x006C")	/* LATIN SMALL LETTER L */,
+	0xFF4D	/* FULLWIDTH LATIN SMALL LETTER M */,	TQU("\x006D")	/* LATIN SMALL LETTER M */,
+	0xFF4E	/* FULLWIDTH LATIN SMALL LETTER N */,	TQU("\x006E")	/* LATIN SMALL LETTER N */,
+	0xFF4F	/* FULLWIDTH LATIN SMALL LETTER O */,	TQU("\x006F")	/* LATIN SMALL LETTER O */,
+	0xFF50	/* FULLWIDTH LATIN SMALL LETTER P */,	TQU("\x0070")	/* LATIN SMALL LETTER P */,
+	0xFF51	/* FULLWIDTH LATIN SMALL LETTER Q */,	TQU("\x0071")	/* LATIN SMALL LETTER Q */,
+	0xFF52	/* FULLWIDTH LATIN SMALL LETTER R */,	TQU("\x0072")	/* LATIN SMALL LETTER R */,
+	0xFF53	/* FULLWIDTH LATIN SMALL LETTER S */,	TQU("\x0073")	/* LATIN SMALL LETTER S */,
+	0xFF54	/* FULLWIDTH LATIN SMALL LETTER T */,	TQU("\x0074")	/* LATIN SMALL LETTER T */,
+	0xFF55	/* FULLWIDTH LATIN SMALL LETTER U */,	TQU("\x0075")	/* LATIN SMALL LETTER U */,
+	0xFF56	/* FULLWIDTH LATIN SMALL LETTER V */,	TQU("\x0076")	/* LATIN SMALL LETTER V */,
+	0xFF57	/* FULLWIDTH LATIN SMALL LETTER W */,	TQU("\x0077")	/* LATIN SMALL LETTER W */,
+	0xFF58	/* FULLWIDTH LATIN SMALL LETTER X */,	TQU("\x0078")	/* LATIN SMALL LETTER X */,
+	0xFF59	/* FULLWIDTH LATIN SMALL LETTER Y */,	TQU("\x0079")	/* LATIN SMALL LETTER Y */,
+	0xFF5A	/* FULLWIDTH LATIN SMALL LETTER Z */,	TQU("\x007A")	/* LATIN SMALL LETTER Z */,
+	0xFF5B	/* FULLWIDTH LEFT CURLY BRACKET */,	TQU("\x007B")	/* LEFT CURLY BRACKET */,
+	0xFF5C	/* FULLWIDTH VERTICAL LINE */,	TQU("\x007C")	/* VERTICAL LINE */,
+	0xFF5D	/* FULLWIDTH RIGHT CURLY BRACKET */,	TQU("\x007D")	/* RIGHT CURLY BRACKET */,
+	0xFF5E	/* FULLWIDTH TILDE */,	TQU("\x007E")	/* TILDE */,
+	0xFF5F	/* FULLWIDTH LEFT WHITE PARENTHESIS */,	TQU("\x2985")	/* LEFT WHITE PARENTHESIS */,
+	0xFF60	/* FULLWIDTH RIGHT WHITE PARENTHESIS */,	TQU("\x2986")	/* RIGHT WHITE PARENTHESIS */,
+	0xFF61	/* HALFWIDTH IDEOGRAPHIC FULL STOP */,	TQU("\x3002")	/* IDEOGRAPHIC FULL STOP */,
+	0xFF62	/* HALFWIDTH LEFT CORNER BRACKET */,	TQU("\x300C")	/* LEFT CORNER BRACKET */,
+	0xFF63	/* HALFWIDTH RIGHT CORNER BRACKET */,	TQU("\x300D")	/* RIGHT CORNER BRACKET */,
+	0xFF64	/* HALFWIDTH IDEOGRAPHIC COMMA */,	TQU("\x3001")	/* IDEOGRAPHIC COMMA */,
+	0xFF65	/* HALFWIDTH KATAKANA MIDDLE DOT */,	TQU("\x30FB")	/* KATAKANA MIDDLE DOT */,
+	0xFF66	/* HALFWIDTH KATAKANA LETTER WO */,	TQU("\x30F2")	/* KATAKANA LETTER WO */,
+	0xFF67	/* HALFWIDTH KATAKANA LETTER SMALL A */,	TQU("\x30A1")	/* KATAKANA LETTER SMALL A */,
+	0xFF68	/* HALFWIDTH KATAKANA LETTER SMALL I */,	TQU("\x30A3")	/* KATAKANA LETTER SMALL I */,
+	0xFF69	/* HALFWIDTH KATAKANA LETTER SMALL U */,	TQU("\x30A5")	/* KATAKANA LETTER SMALL U */,
+	0xFF6A	/* HALFWIDTH KATAKANA LETTER SMALL E */,	TQU("\x30A7")	/* KATAKANA LETTER SMALL E */,
+	0xFF6B	/* HALFWIDTH KATAKANA LETTER SMALL O */,	TQU("\x30A9")	/* KATAKANA LETTER SMALL O */,
+	0xFF6C	/* HALFWIDTH KATAKANA LETTER SMALL YA */,	TQU("\x30E3")	/* KATAKANA LETTER SMALL YA */,
+	0xFF6D	/* HALFWIDTH KATAKANA LETTER SMALL YU */,	TQU("\x30E5")	/* KATAKANA LETTER SMALL YU */,
+	0xFF6E	/* HALFWIDTH KATAKANA LETTER SMALL YO */,	TQU("\x30E7")	/* KATAKANA LETTER SMALL YO */,
+	0xFF6F	/* HALFWIDTH KATAKANA LETTER SMALL TU */,	TQU("\x30C3")	/* KATAKANA LETTER SMALL TU */,
+	0xFF70	/* HALFWIDTH KATAKANA-HIRAGANA PROLONGED SOUND MARK */,	TQU("\x30FC")	/* KATAKANA-HIRAGANA PROLONGED SOUND MARK */,
+	0xFF71	/* HALFWIDTH KATAKANA LETTER A */,	TQU("\x30A2")	/* KATAKANA LETTER A */,
+	0xFF72	/* HALFWIDTH KATAKANA LETTER I */,	TQU("\x30A4")	/* KATAKANA LETTER I */,
+	0xFF73	/* HALFWIDTH KATAKANA LETTER U */,	TQU("\x30A6")	/* KATAKANA LETTER U */,
+	0xFF74	/* HALFWIDTH KATAKANA LETTER E */,	TQU("\x30A8")	/* KATAKANA LETTER E */,
+	0xFF75	/* HALFWIDTH KATAKANA LETTER O */,	TQU("\x30AA")	/* KATAKANA LETTER O */,
+	0xFF76	/* HALFWIDTH KATAKANA LETTER KA */,	TQU("\x30AB")	/* KATAKANA LETTER KA */,
+	0xFF77	/* HALFWIDTH KATAKANA LETTER KI */,	TQU("\x30AD")	/* KATAKANA LETTER KI */,
+	0xFF78	/* HALFWIDTH KATAKANA LETTER KU */,	TQU("\x30AF")	/* KATAKANA LETTER KU */,
+	0xFF79	/* HALFWIDTH KATAKANA LETTER KE */,	TQU("\x30B1")	/* KATAKANA LETTER KE */,
+	0xFF7A	/* HALFWIDTH KATAKANA LETTER KO */,	TQU("\x30B3")	/* KATAKANA LETTER KO */,
+	0xFF7B	/* HALFWIDTH KATAKANA LETTER SA */,	TQU("\x30B5")	/* KATAKANA LETTER SA */,
+	0xFF7C	/* HALFWIDTH KATAKANA LETTER SI */,	TQU("\x30B7")	/* KATAKANA LETTER SI */,
+	0xFF7D	/* HALFWIDTH KATAKANA LETTER SU */,	TQU("\x30B9")	/* KATAKANA LETTER SU */,
+	0xFF7E	/* HALFWIDTH KATAKANA LETTER SE */,	TQU("\x30BB")	/* KATAKANA LETTER SE */,
+	0xFF7F	/* HALFWIDTH KATAKANA LETTER SO */,	TQU("\x30BD")	/* KATAKANA LETTER SO */,
+	0xFF80	/* HALFWIDTH KATAKANA LETTER TA */,	TQU("\x30BF")	/* KATAKANA LETTER TA */,
+	0xFF81	/* HALFWIDTH KATAKANA LETTER TI */,	TQU("\x30C1")	/* KATAKANA LETTER TI */,
+	0xFF82	/* HALFWIDTH KATAKANA LETTER TU */,	TQU("\x30C4")	/* KATAKANA LETTER TU */,
+	0xFF83	/* HALFWIDTH KATAKANA LETTER TE */,	TQU("\x30C6")	/* KATAKANA LETTER TE */,
+	0xFF84	/* HALFWIDTH KATAKANA LETTER TO */,	TQU("\x30C8")	/* KATAKANA LETTER TO */,
+	0xFF85	/* HALFWIDTH KATAKANA LETTER NA */,	TQU("\x30CA")	/* KATAKANA LETTER NA */,
+	0xFF86	/* HALFWIDTH KATAKANA LETTER NI */,	TQU("\x30CB")	/* KATAKANA LETTER NI */,
+	0xFF87	/* HALFWIDTH KATAKANA LETTER NU */,	TQU("\x30CC")	/* KATAKANA LETTER NU */,
+	0xFF88	/* HALFWIDTH KATAKANA LETTER NE */,	TQU("\x30CD")	/* KATAKANA LETTER NE */,
+	0xFF89	/* HALFWIDTH KATAKANA LETTER NO */,	TQU("\x30CE")	/* KATAKANA LETTER NO */,
+	0xFF8A	/* HALFWIDTH KATAKANA LETTER HA */,	TQU("\x30CF")	/* KATAKANA LETTER HA */,
+	0xFF8B	/* HALFWIDTH KATAKANA LETTER HI */,	TQU("\x30D2")	/* KATAKANA LETTER HI */,
+	0xFF8C	/* HALFWIDTH KATAKANA LETTER HU */,	TQU("\x30D5")	/* KATAKANA LETTER HU */,
+	0xFF8D	/* HALFWIDTH KATAKANA LETTER HE */,	TQU("\x30D8")	/* KATAKANA LETTER HE */,
+	0xFF8E	/* HALFWIDTH KATAKANA LETTER HO */,	TQU("\x30DB")	/* KATAKANA LETTER HO */,
+	0xFF8F	/* HALFWIDTH KATAKANA LETTER MA */,	TQU("\x30DE")	/* KATAKANA LETTER MA */,
+	0xFF90	/* HALFWIDTH KATAKANA LETTER MI */,	TQU("\x30DF")	/* KATAKANA LETTER MI */,
+	0xFF91	/* HALFWIDTH KATAKANA LETTER MU */,	TQU("\x30E0")	/* KATAKANA LETTER MU */,
+	0xFF92	/* HALFWIDTH KATAKANA LETTER ME */,	TQU("\x30E1")	/* KATAKANA LETTER ME */,
+	0xFF93	/* HALFWIDTH KATAKANA LETTER MO */,	TQU("\x30E2")	/* KATAKANA LETTER MO */,
+	0xFF94	/* HALFWIDTH KATAKANA LETTER YA */,	TQU("\x30E4")	/* KATAKANA LETTER YA */,
+	0xFF95	/* HALFWIDTH KATAKANA LETTER YU */,	TQU("\x30E6")	/* KATAKANA LETTER YU */,
+	0xFF96	/* HALFWIDTH KATAKANA LETTER YO */,	TQU("\x30E8")	/* KATAKANA LETTER YO */,
+	0xFF97	/* HALFWIDTH KATAKANA LETTER RA */,	TQU("\x30E9")	/* KATAKANA LETTER RA */,
+	0xFF98	/* HALFWIDTH KATAKANA LETTER RI */,	TQU("\x30EA")	/* KATAKANA LETTER RI */,
+	0xFF99	/* HALFWIDTH KATAKANA LETTER RU */,	TQU("\x30EB")	/* KATAKANA LETTER RU */,
+	0xFF9A	/* HALFWIDTH KATAKANA LETTER RE */,	TQU("\x30EC")	/* KATAKANA LETTER RE */,
+	0xFF9B	/* HALFWIDTH KATAKANA LETTER RO */,	TQU("\x30ED")	/* KATAKANA LETTER RO */,
+	0xFF9C	/* HALFWIDTH KATAKANA LETTER WA */,	TQU("\x30EF")	/* KATAKANA LETTER WA */,
+	0xFF9D	/* HALFWIDTH KATAKANA LETTER N */,	TQU("\x30F3")	/* KATAKANA LETTER N */,
+	0xFF9E	/* HALFWIDTH KATAKANA VOICED SOUND MARK */,	TQU("\x309B")	/* KATAKANA-HIRAGANA VOICED SOUND MARK */,
+	0xFF9F	/* HALFWIDTH KATAKANA SEMI-VOICED SOUND MARK */,	TQU("\x309C")	/* KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK */,
+	0xFFE0	/* FULLWIDTH CENT SIGN */,	TQU("\x00A2")	/* CENT SIGN */,
+	0xFFE1	/* FULLWIDTH POUND SIGN */,	TQU("\x00A3")	/* POUND SIGN */,
+	0xFFE2	/* FULLWIDTH NOT SIGN */,	TQU("\x00AC")	/* NOT SIGN */,
+	0xFFE3	/* FULLWIDTH MACRON */,	TQU("\x00AF")	/* MACRON */,
+	0xFFE4	/* FULLWIDTH BROKEN BAR */,	TQU("\x00A6")	/* BROKEN BAR */,
+	0xFFE5	/* FULLWIDTH YEN SIGN */,	TQU("\x00A5")	/* YEN SIGN */,
+	0xFFE6	/* FULLWIDTH WON SIGN */,	TQU("\x20A9")	/* WON SIGN */,
+	0xFFE8	/* HALFWIDTH FORMS LIGHT VERTICAL */,	TQU("\x2502")	/* BOX DRAWINGS LIGHT VERTICAL */,
+	0xFFE9	/* HALFWIDTH LEFTWARDS ARROW */,	TQU("\x2190")	/* LEFTWARDS ARROW */,
+	0xFFEA	/* HALFWIDTH UPWARDS ARROW */,	TQU("\x2191")	/* UPWARDS ARROW */,
+	0xFFEB	/* HALFWIDTH RIGHTWARDS ARROW */,	TQU("\x2192")	/* RIGHTWARDS ARROW */,
+	0xFFEC	/* HALFWIDTH DOWNWARDS ARROW */,	TQU("\x2193")	/* DOWNWARDS ARROW */,
+	0xFFED	/* HALFWIDTH BLACK SQUARE */,	TQU("\x25A0")	/* BLACK SQUARE */,
+	0xFFEE	/* HALFWIDTH WHITE CIRCLE */,	TQU("\x25CB")	/* WHITE CIRCLE */,
+};
+#endif
+
+UINT	KanaWidthFoldingCpList3000[]	= { 0x0020, 0 };	//	SPACE
+UINT	KanaWidthFoldingCpListFF01[]	= { 0x0021, 0 };	//	EXCLAMATION MARK
+UINT	KanaWidthFoldingCpListFF02[]	= { 0x0022, 0 };	//	QUOTATION MARK
+UINT	KanaWidthFoldingCpListFF03[]	= { 0x0023, 0 };	//	NUMBER SIGN
+UINT	KanaWidthFoldingCpListFF04[]	= { 0x0024, 0 };	//	DOLLAR SIGN
+UINT	KanaWidthFoldingCpListFF05[]	= { 0x0025, 0 };	//	PERCENT SIGN
+UINT	KanaWidthFoldingCpListFF06[]	= { 0x0026, 0 };	//	AMPERSAND
+UINT	KanaWidthFoldingCpListFF07[]	= { 0x0027, 0 };	//	APOSTROPHE
+UINT	KanaWidthFoldingCpListFF08[]	= { 0x0028, 0 };	//	LEFT PARENTHESIS
+UINT	KanaWidthFoldingCpListFF09[]	= { 0x0029, 0 };	//	RIGHT PARENTHESIS
+UINT	KanaWidthFoldingCpListFF0A[]	= { 0x002A, 0 };	//	ASTERISK
+UINT	KanaWidthFoldingCpListFF0B[]	= { 0x002B, 0 };	//	PLUS SIGN
+UINT	KanaWidthFoldingCpListFF0C[]	= { 0x002C, 0 };	//	COMMA
+UINT	KanaWidthFoldingCpListFF0D[]	= { 0x002D, 0 };	//	HYPHEN-MINUS
+UINT	KanaWidthFoldingCpListFF0E[]	= { 0x002E, 0 };	//	FULL STOP
+UINT	KanaWidthFoldingCpListFF0F[]	= { 0x002F, 0 };	//	SOLIDUS
+UINT	KanaWidthFoldingCpListFF10[]	= { 0x0030, 0 };	//	DIGIT ZERO
+UINT	KanaWidthFoldingCpListFF11[]	= { 0x0031, 0 };	//	DIGIT ONE
+UINT	KanaWidthFoldingCpListFF12[]	= { 0x0032, 0 };	//	DIGIT TWO
+UINT	KanaWidthFoldingCpListFF13[]	= { 0x0033, 0 };	//	DIGIT THREE
+UINT	KanaWidthFoldingCpListFF14[]	= { 0x0034, 0 };	//	DIGIT FOUR
+UINT	KanaWidthFoldingCpListFF15[]	= { 0x0035, 0 };	//	DIGIT FIVE
+UINT	KanaWidthFoldingCpListFF16[]	= { 0x0036, 0 };	//	DIGIT SIX
+UINT	KanaWidthFoldingCpListFF17[]	= { 0x0037, 0 };	//	DIGIT SEVEN
+UINT	KanaWidthFoldingCpListFF18[]	= { 0x0038, 0 };	//	DIGIT EIGHT
+UINT	KanaWidthFoldingCpListFF19[]	= { 0x0039, 0 };	//	DIGIT NINE
+UINT	KanaWidthFoldingCpListFF1A[]	= { 0x003A, 0 };	//	COLON
+UINT	KanaWidthFoldingCpListFF1B[]	= { 0x003B, 0 };	//	SEMICOLON
+UINT	KanaWidthFoldingCpListFF1C[]	= { 0x003C, 0 };	//	LESS-THAN SIGN
+UINT	KanaWidthFoldingCpListFF1D[]	= { 0x003D, 0 };	//	EQUALS SIGN
+UINT	KanaWidthFoldingCpListFF1E[]	= { 0x003E, 0 };	//	GREATER-THAN SIGN
+UINT	KanaWidthFoldingCpListFF1F[]	= { 0x003F, 0 };	//	QUESTION MARK
+UINT	KanaWidthFoldingCpListFF20[]	= { 0x0040, 0 };	//	COMMERCIAL AT
+UINT	KanaWidthFoldingCpListFF21[]	= { 0x0041, 0 };	//	LATIN CAPITAL LETTER A
+UINT	KanaWidthFoldingCpListFF22[]	= { 0x0042, 0 };	//	LATIN CAPITAL LETTER B
+UINT	KanaWidthFoldingCpListFF23[]	= { 0x0043, 0 };	//	LATIN CAPITAL LETTER C
+UINT	KanaWidthFoldingCpListFF24[]	= { 0x0044, 0 };	//	LATIN CAPITAL LETTER D
+UINT	KanaWidthFoldingCpListFF25[]	= { 0x0045, 0 };	//	LATIN CAPITAL LETTER E
+UINT	KanaWidthFoldingCpListFF26[]	= { 0x0046, 0 };	//	LATIN CAPITAL LETTER F
+UINT	KanaWidthFoldingCpListFF27[]	= { 0x0047, 0 };	//	LATIN CAPITAL LETTER G
+UINT	KanaWidthFoldingCpListFF28[]	= { 0x0048, 0 };	//	LATIN CAPITAL LETTER H
+UINT	KanaWidthFoldingCpListFF29[]	= { 0x0049, 0 };	//	LATIN CAPITAL LETTER I
+UINT	KanaWidthFoldingCpListFF2A[]	= { 0x004A, 0 };	//	LATIN CAPITAL LETTER J
+UINT	KanaWidthFoldingCpListFF2B[]	= { 0x004B, 0 };	//	LATIN CAPITAL LETTER K
+UINT	KanaWidthFoldingCpListFF2C[]	= { 0x004C, 0 };	//	LATIN CAPITAL LETTER L
+UINT	KanaWidthFoldingCpListFF2D[]	= { 0x004D, 0 };	//	LATIN CAPITAL LETTER M
+UINT	KanaWidthFoldingCpListFF2E[]	= { 0x004E, 0 };	//	LATIN CAPITAL LETTER N
+UINT	KanaWidthFoldingCpListFF2F[]	= { 0x004F, 0 };	//	LATIN CAPITAL LETTER O
+UINT	KanaWidthFoldingCpListFF30[]	= { 0x0050, 0 };	//	LATIN CAPITAL LETTER P
+UINT	KanaWidthFoldingCpListFF31[]	= { 0x0051, 0 };	//	LATIN CAPITAL LETTER Q
+UINT	KanaWidthFoldingCpListFF32[]	= { 0x0052, 0 };	//	LATIN CAPITAL LETTER R
+UINT	KanaWidthFoldingCpListFF33[]	= { 0x0053, 0 };	//	LATIN CAPITAL LETTER S
+UINT	KanaWidthFoldingCpListFF34[]	= { 0x0054, 0 };	//	LATIN CAPITAL LETTER T
+UINT	KanaWidthFoldingCpListFF35[]	= { 0x0055, 0 };	//	LATIN CAPITAL LETTER U
+UINT	KanaWidthFoldingCpListFF36[]	= { 0x0056, 0 };	//	LATIN CAPITAL LETTER V
+UINT	KanaWidthFoldingCpListFF37[]	= { 0x0057, 0 };	//	LATIN CAPITAL LETTER W
+UINT	KanaWidthFoldingCpListFF38[]	= { 0x0058, 0 };	//	LATIN CAPITAL LETTER X
+UINT	KanaWidthFoldingCpListFF39[]	= { 0x0059, 0 };	//	LATIN CAPITAL LETTER Y
+UINT	KanaWidthFoldingCpListFF3A[]	= { 0x005A, 0 };	//	LATIN CAPITAL LETTER Z
+UINT	KanaWidthFoldingCpListFF3B[]	= { 0x005B, 0 };	//	LEFT SQUARE BRACKET
+UINT	KanaWidthFoldingCpListFF3C[]	= { 0x005C, 0 };	//	REVERSE SOLIDUS
+UINT	KanaWidthFoldingCpListFF3D[]	= { 0x005D, 0 };	//	RIGHT SQUARE BRACKET
+UINT	KanaWidthFoldingCpListFF3E[]	= { 0x005E, 0 };	//	CIRCUMFLEX ACCENT
+UINT	KanaWidthFoldingCpListFF3F[]	= { 0x005F, 0 };	//	LOW LINE
+UINT	KanaWidthFoldingCpListFF40[]	= { 0x0060, 0 };	//	GRAVE ACCENT
+UINT	KanaWidthFoldingCpListFF41[]	= { 0x0061, 0 };	//	LATIN SMALL LETTER A
+UINT	KanaWidthFoldingCpListFF42[]	= { 0x0062, 0 };	//	LATIN SMALL LETTER B
+UINT	KanaWidthFoldingCpListFF43[]	= { 0x0063, 0 };	//	LATIN SMALL LETTER C
+UINT	KanaWidthFoldingCpListFF44[]	= { 0x0064, 0 };	//	LATIN SMALL LETTER D
+UINT	KanaWidthFoldingCpListFF45[]	= { 0x0065, 0 };	//	LATIN SMALL LETTER E
+UINT	KanaWidthFoldingCpListFF46[]	= { 0x0066, 0 };	//	LATIN SMALL LETTER F
+UINT	KanaWidthFoldingCpListFF47[]	= { 0x0067, 0 };	//	LATIN SMALL LETTER G
+UINT	KanaWidthFoldingCpListFF48[]	= { 0x0068, 0 };	//	LATIN SMALL LETTER H
+UINT	KanaWidthFoldingCpListFF49[]	= { 0x0069, 0 };	//	LATIN SMALL LETTER I
+UINT	KanaWidthFoldingCpListFF4A[]	= { 0x006A, 0 };	//	LATIN SMALL LETTER J
+UINT	KanaWidthFoldingCpListFF4B[]	= { 0x006B, 0 };	//	LATIN SMALL LETTER K
+UINT	KanaWidthFoldingCpListFF4C[]	= { 0x006C, 0 };	//	LATIN SMALL LETTER L
+UINT	KanaWidthFoldingCpListFF4D[]	= { 0x006D, 0 };	//	LATIN SMALL LETTER M
+UINT	KanaWidthFoldingCpListFF4E[]	= { 0x006E, 0 };	//	LATIN SMALL LETTER N
+UINT	KanaWidthFoldingCpListFF4F[]	= { 0x006F, 0 };	//	LATIN SMALL LETTER O
+UINT	KanaWidthFoldingCpListFF50[]	= { 0x0070, 0 };	//	LATIN SMALL LETTER P
+UINT	KanaWidthFoldingCpListFF51[]	= { 0x0071, 0 };	//	LATIN SMALL LETTER Q
+UINT	KanaWidthFoldingCpListFF52[]	= { 0x0072, 0 };	//	LATIN SMALL LETTER R
+UINT	KanaWidthFoldingCpListFF53[]	= { 0x0073, 0 };	//	LATIN SMALL LETTER S
+UINT	KanaWidthFoldingCpListFF54[]	= { 0x0074, 0 };	//	LATIN SMALL LETTER T
+UINT	KanaWidthFoldingCpListFF55[]	= { 0x0075, 0 };	//	LATIN SMALL LETTER U
+UINT	KanaWidthFoldingCpListFF56[]	= { 0x0076, 0 };	//	LATIN SMALL LETTER V
+UINT	KanaWidthFoldingCpListFF57[]	= { 0x0077, 0 };	//	LATIN SMALL LETTER W
+UINT	KanaWidthFoldingCpListFF58[]	= { 0x0078, 0 };	//	LATIN SMALL LETTER X
+UINT	KanaWidthFoldingCpListFF59[]	= { 0x0079, 0 };	//	LATIN SMALL LETTER Y
+UINT	KanaWidthFoldingCpListFF5A[]	= { 0x007A, 0 };	//	LATIN SMALL LETTER Z
+UINT	KanaWidthFoldingCpListFF5B[]	= { 0x007B, 0 };	//	LEFT CURLY BRACKET
+UINT	KanaWidthFoldingCpListFF5C[]	= { 0x007C, 0 };	//	VERTICAL LINE
+UINT	KanaWidthFoldingCpListFF5D[]	= { 0x007D, 0 };	//	RIGHT CURLY BRACKET
+UINT	KanaWidthFoldingCpListFF5E[]	= { 0x007E, 0 };	//	TILDE
+UINT	KanaWidthFoldingCpListFF5F[]	= { 0x2985, 0 };	//	LEFT WHITE PARENTHESIS
+UINT	KanaWidthFoldingCpListFF60[]	= { 0x2986, 0 };	//	RIGHT WHITE PARENTHESIS
+UINT	KanaWidthFoldingCpListFF61[]	= { 0x3002, 0 };	//	IDEOGRAPHIC FULL STOP
+UINT	KanaWidthFoldingCpListFF62[]	= { 0x300C, 0 };	//	LEFT CORNER BRACKET
+UINT	KanaWidthFoldingCpListFF63[]	= { 0x300D, 0 };	//	RIGHT CORNER BRACKET
+UINT	KanaWidthFoldingCpListFF64[]	= { 0x3001, 0 };	//	IDEOGRAPHIC COMMA
+UINT	KanaWidthFoldingCpListFF65[]	= { 0x30FB, 0 };	//	KATAKANA MIDDLE DOT
+UINT	KanaWidthFoldingCpListFF66[]	= { 0x30F2, 0 };	//	KATAKANA LETTER WO
+UINT	KanaWidthFoldingCpListFF67[]	= { 0x30A1, 0 };	//	KATAKANA LETTER SMALL A
+UINT	KanaWidthFoldingCpListFF68[]	= { 0x30A3, 0 };	//	KATAKANA LETTER SMALL I
+UINT	KanaWidthFoldingCpListFF69[]	= { 0x30A5, 0 };	//	KATAKANA LETTER SMALL U
+UINT	KanaWidthFoldingCpListFF6A[]	= { 0x30A7, 0 };	//	KATAKANA LETTER SMALL E
+UINT	KanaWidthFoldingCpListFF6B[]	= { 0x30A9, 0 };	//	KATAKANA LETTER SMALL O
+UINT	KanaWidthFoldingCpListFF6C[]	= { 0x30E3, 0 };	//	KATAKANA LETTER SMALL YA
+UINT	KanaWidthFoldingCpListFF6D[]	= { 0x30E5, 0 };	//	KATAKANA LETTER SMALL YU
+UINT	KanaWidthFoldingCpListFF6E[]	= { 0x30E7, 0 };	//	KATAKANA LETTER SMALL YO
+UINT	KanaWidthFoldingCpListFF6F[]	= { 0x30C3, 0 };	//	KATAKANA LETTER SMALL TU
+UINT	KanaWidthFoldingCpListFF70[]	= { 0x30FC, 0 };	//	KATAKANA-HIRAGANA PROLONGED SOUND MARK
+UINT	KanaWidthFoldingCpListFF71[]	= { 0x30A2, 0 };	//	KATAKANA LETTER A
+UINT	KanaWidthFoldingCpListFF72[]	= { 0x30A4, 0 };	//	KATAKANA LETTER I
+UINT	KanaWidthFoldingCpListFF73[]	= { 0x30A6, 0 };	//	KATAKANA LETTER U
+UINT	KanaWidthFoldingCpListFF74[]	= { 0x30A8, 0 };	//	KATAKANA LETTER E
+UINT	KanaWidthFoldingCpListFF75[]	= { 0x30AA, 0 };	//	KATAKANA LETTER O
+UINT	KanaWidthFoldingCpListFF76[]	= { 0x30AB, 0 };	//	KATAKANA LETTER KA
+UINT	KanaWidthFoldingCpListFF77[]	= { 0x30AD, 0 };	//	KATAKANA LETTER KI
+UINT	KanaWidthFoldingCpListFF78[]	= { 0x30AF, 0 };	//	KATAKANA LETTER KU
+UINT	KanaWidthFoldingCpListFF79[]	= { 0x30B1, 0 };	//	KATAKANA LETTER KE
+UINT	KanaWidthFoldingCpListFF7A[]	= { 0x30B3, 0 };	//	KATAKANA LETTER KO
+UINT	KanaWidthFoldingCpListFF7B[]	= { 0x30B5, 0 };	//	KATAKANA LETTER SA
+UINT	KanaWidthFoldingCpListFF7C[]	= { 0x30B7, 0 };	//	KATAKANA LETTER SI
+UINT	KanaWidthFoldingCpListFF7D[]	= { 0x30B9, 0 };	//	KATAKANA LETTER SU
+UINT	KanaWidthFoldingCpListFF7E[]	= { 0x30BB, 0 };	//	KATAKANA LETTER SE
+UINT	KanaWidthFoldingCpListFF7F[]	= { 0x30BD, 0 };	//	KATAKANA LETTER SO
+UINT	KanaWidthFoldingCpListFF80[]	= { 0x30BF, 0 };	//	KATAKANA LETTER TA
+UINT	KanaWidthFoldingCpListFF81[]	= { 0x30C1, 0 };	//	KATAKANA LETTER TI
+UINT	KanaWidthFoldingCpListFF82[]	= { 0x30C4, 0 };	//	KATAKANA LETTER TU
+UINT	KanaWidthFoldingCpListFF83[]	= { 0x30C6, 0 };	//	KATAKANA LETTER TE
+UINT	KanaWidthFoldingCpListFF84[]	= { 0x30C8, 0 };	//	KATAKANA LETTER TO
+UINT	KanaWidthFoldingCpListFF85[]	= { 0x30CA, 0 };	//	KATAKANA LETTER NA
+UINT	KanaWidthFoldingCpListFF86[]	= { 0x30CB, 0 };	//	KATAKANA LETTER NI
+UINT	KanaWidthFoldingCpListFF87[]	= { 0x30CC, 0 };	//	KATAKANA LETTER NU
+UINT	KanaWidthFoldingCpListFF88[]	= { 0x30CD, 0 };	//	KATAKANA LETTER NE
+UINT	KanaWidthFoldingCpListFF89[]	= { 0x30CE, 0 };	//	KATAKANA LETTER NO
+UINT	KanaWidthFoldingCpListFF8A[]	= { 0x30CF, 0 };	//	KATAKANA LETTER HA
+UINT	KanaWidthFoldingCpListFF8B[]	= { 0x30D2, 0 };	//	KATAKANA LETTER HI
+UINT	KanaWidthFoldingCpListFF8C[]	= { 0x30D5, 0 };	//	KATAKANA LETTER HU
+UINT	KanaWidthFoldingCpListFF8D[]	= { 0x30D8, 0 };	//	KATAKANA LETTER HE
+UINT	KanaWidthFoldingCpListFF8E[]	= { 0x30DB, 0 };	//	KATAKANA LETTER HO
+UINT	KanaWidthFoldingCpListFF8F[]	= { 0x30DE, 0 };	//	KATAKANA LETTER MA
+UINT	KanaWidthFoldingCpListFF90[]	= { 0x30DF, 0 };	//	KATAKANA LETTER MI
+UINT	KanaWidthFoldingCpListFF91[]	= { 0x30E0, 0 };	//	KATAKANA LETTER MU
+UINT	KanaWidthFoldingCpListFF92[]	= { 0x30E1, 0 };	//	KATAKANA LETTER ME
+UINT	KanaWidthFoldingCpListFF93[]	= { 0x30E2, 0 };	//	KATAKANA LETTER MO
+UINT	KanaWidthFoldingCpListFF94[]	= { 0x30E4, 0 };	//	KATAKANA LETTER YA
+UINT	KanaWidthFoldingCpListFF95[]	= { 0x30E6, 0 };	//	KATAKANA LETTER YU
+UINT	KanaWidthFoldingCpListFF96[]	= { 0x30E8, 0 };	//	KATAKANA LETTER YO
+UINT	KanaWidthFoldingCpListFF97[]	= { 0x30E9, 0 };	//	KATAKANA LETTER RA
+UINT	KanaWidthFoldingCpListFF98[]	= { 0x30EA, 0 };	//	KATAKANA LETTER RI
+UINT	KanaWidthFoldingCpListFF99[]	= { 0x30EB, 0 };	//	KATAKANA LETTER RU
+UINT	KanaWidthFoldingCpListFF9A[]	= { 0x30EC, 0 };	//	KATAKANA LETTER RE
+UINT	KanaWidthFoldingCpListFF9B[]	= { 0x30ED, 0 };	//	KATAKANA LETTER RO
+UINT	KanaWidthFoldingCpListFF9C[]	= { 0x30EF, 0 };	//	KATAKANA LETTER WA
+UINT	KanaWidthFoldingCpListFF9D[]	= { 0x30F3, 0 };	//	KATAKANA LETTER N
+UINT	KanaWidthFoldingCpListFF9E[]	= { 0x309B, 0 };	//	KATAKANA-HIRAGANA VOICED SOUND MARK
+UINT	KanaWidthFoldingCpListFF9F[]	= { 0x309C, 0 };	//	KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK
+UINT	KanaWidthFoldingCpListFFE0[]	= { 0x00A2, 0 };	//	CENT SIGN
+UINT	KanaWidthFoldingCpListFFE1[]	= { 0x00A3, 0 };	//	POUND SIGN
+UINT	KanaWidthFoldingCpListFFE2[]	= { 0x00AC, 0 };	//	NOT SIGN
+UINT	KanaWidthFoldingCpListFFE3[]	= { 0x00AF, 0 };	//	MACRON
+UINT	KanaWidthFoldingCpListFFE4[]	= { 0x00A6, 0 };	//	BROKEN BAR
+UINT	KanaWidthFoldingCpListFFE5[]	= { 0x00A5, 0 };	//	YEN SIGN
+UINT	KanaWidthFoldingCpListFFE6[]	= { 0x20A9, 0 };	//	WON SIGN
+UINT	KanaWidthFoldingCpListFFE8[]	= { 0x2502, 0 };	//	BOX DRAWINGS LIGHT VERTICAL
+UINT	KanaWidthFoldingCpListFFE9[]	= { 0x2190, 0 };	//	LEFTWARDS ARROW
+UINT	KanaWidthFoldingCpListFFEA[]	= { 0x2191, 0 };	//	UPWARDS ARROW
+UINT	KanaWidthFoldingCpListFFEB[]	= { 0x2192, 0 };	//	RIGHTWARDS ARROW
+UINT	KanaWidthFoldingCpListFFEC[]	= { 0x2193, 0 };	//	DOWNWARDS ARROW
+UINT	KanaWidthFoldingCpListFFED[]	= { 0x25A0, 0 };	//	BLACK SQUARE
+UINT	KanaWidthFoldingCpListFFEE[]	= { 0x25CB, 0 };	//	WHITE CIRCLE
+
+SCSTRMAP	siCStrMapKanaWidth[]	=
+{
+	0x3000	/* IDEOGRAPHIC SPACE */,	KanaWidthFoldingCpList3000,	1,	TQU("\x0020")	/* SPACE */,
+	0xFF01	/* FULLWIDTH EXCLAMATION MARK */,	KanaWidthFoldingCpListFF01,	1,	TQU("\x0021")	/* EXCLAMATION MARK */,
+	0xFF02	/* FULLWIDTH QUOTATION MARK */,	KanaWidthFoldingCpListFF02,	1,	TQU("\x0022")	/* QUOTATION MARK */,
+	0xFF03	/* FULLWIDTH NUMBER SIGN */,	KanaWidthFoldingCpListFF03,	1,	TQU("\x0023")	/* NUMBER SIGN */,
+	0xFF04	/* FULLWIDTH DOLLAR SIGN */,	KanaWidthFoldingCpListFF04,	1,	TQU("\x0024")	/* DOLLAR SIGN */,
+	0xFF05	/* FULLWIDTH PERCENT SIGN */,	KanaWidthFoldingCpListFF05,	1,	TQU("\x0025")	/* PERCENT SIGN */,
+	0xFF06	/* FULLWIDTH AMPERSAND */,	KanaWidthFoldingCpListFF06,	1,	TQU("\x0026")	/* AMPERSAND */,
+	0xFF07	/* FULLWIDTH APOSTROPHE */,	KanaWidthFoldingCpListFF07,	1,	TQU("\x0027")	/* APOSTROPHE */,
+	0xFF08	/* FULLWIDTH LEFT PARENTHESIS */,	KanaWidthFoldingCpListFF08,	1,	TQU("\x0028")	/* LEFT PARENTHESIS */,
+	0xFF09	/* FULLWIDTH RIGHT PARENTHESIS */,	KanaWidthFoldingCpListFF09,	1,	TQU("\x0029")	/* RIGHT PARENTHESIS */,
+	0xFF0A	/* FULLWIDTH ASTERISK */,	KanaWidthFoldingCpListFF0A,	1,	TQU("\x002A")	/* ASTERISK */,
+	0xFF0B	/* FULLWIDTH PLUS SIGN */,	KanaWidthFoldingCpListFF0B,	1,	TQU("\x002B")	/* PLUS SIGN */,
+	0xFF0C	/* FULLWIDTH COMMA */,	KanaWidthFoldingCpListFF0C,	1,	TQU("\x002C")	/* COMMA */,
+	0xFF0D	/* FULLWIDTH HYPHEN-MINUS */,	KanaWidthFoldingCpListFF0D,	1,	TQU("\x002D")	/* HYPHEN-MINUS */,
+	0xFF0E	/* FULLWIDTH FULL STOP */,	KanaWidthFoldingCpListFF0E,	1,	TQU("\x002E")	/* FULL STOP */,
+	0xFF0F	/* FULLWIDTH SOLIDUS */,	KanaWidthFoldingCpListFF0F,	1,	TQU("\x002F")	/* SOLIDUS */,
+	0xFF10	/* FULLWIDTH DIGIT ZERO */,	KanaWidthFoldingCpListFF10,	1,	TQU("\x0030")	/* DIGIT ZERO */,
+	0xFF11	/* FULLWIDTH DIGIT ONE */,	KanaWidthFoldingCpListFF11,	1,	TQU("\x0031")	/* DIGIT ONE */,
+	0xFF12	/* FULLWIDTH DIGIT TWO */,	KanaWidthFoldingCpListFF12,	1,	TQU("\x0032")	/* DIGIT TWO */,
+	0xFF13	/* FULLWIDTH DIGIT THREE */,	KanaWidthFoldingCpListFF13,	1,	TQU("\x0033")	/* DIGIT THREE */,
+	0xFF14	/* FULLWIDTH DIGIT FOUR */,	KanaWidthFoldingCpListFF14,	1,	TQU("\x0034")	/* DIGIT FOUR */,
+	0xFF15	/* FULLWIDTH DIGIT FIVE */,	KanaWidthFoldingCpListFF15,	1,	TQU("\x0035")	/* DIGIT FIVE */,
+	0xFF16	/* FULLWIDTH DIGIT SIX */,	KanaWidthFoldingCpListFF16,	1,	TQU("\x0036")	/* DIGIT SIX */,
+	0xFF17	/* FULLWIDTH DIGIT SEVEN */,	KanaWidthFoldingCpListFF17,	1,	TQU("\x0037")	/* DIGIT SEVEN */,
+	0xFF18	/* FULLWIDTH DIGIT EIGHT */,	KanaWidthFoldingCpListFF18,	1,	TQU("\x0038")	/* DIGIT EIGHT */,
+	0xFF19	/* FULLWIDTH DIGIT NINE */,	KanaWidthFoldingCpListFF19,	1,	TQU("\x0039")	/* DIGIT NINE */,
+	0xFF1A	/* FULLWIDTH COLON */,	KanaWidthFoldingCpListFF1A,	1,	TQU("\x003A")	/* COLON */,
+	0xFF1B	/* FULLWIDTH SEMICOLON */,	KanaWidthFoldingCpListFF1B,	1,	TQU("\x003B")	/* SEMICOLON */,
+	0xFF1C	/* FULLWIDTH LESS-THAN SIGN */,	KanaWidthFoldingCpListFF1C,	1,	TQU("\x003C")	/* LESS-THAN SIGN */,
+	0xFF1D	/* FULLWIDTH EQUALS SIGN */,	KanaWidthFoldingCpListFF1D,	1,	TQU("\x003D")	/* EQUALS SIGN */,
+	0xFF1E	/* FULLWIDTH GREATER-THAN SIGN */,	KanaWidthFoldingCpListFF1E,	1,	TQU("\x003E")	/* GREATER-THAN SIGN */,
+	0xFF1F	/* FULLWIDTH QUESTION MARK */,	KanaWidthFoldingCpListFF1F,	1,	TQU("\x003F")	/* QUESTION MARK */,
+	0xFF20	/* FULLWIDTH COMMERCIAL AT */,	KanaWidthFoldingCpListFF20,	1,	TQU("\x0040")	/* COMMERCIAL AT */,
+	0xFF21	/* FULLWIDTH LATIN CAPITAL LETTER A */,	KanaWidthFoldingCpListFF21,	1,	TQU("\x0041")	/* LATIN CAPITAL LETTER A */,
+	0xFF22	/* FULLWIDTH LATIN CAPITAL LETTER B */,	KanaWidthFoldingCpListFF22,	1,	TQU("\x0042")	/* LATIN CAPITAL LETTER B */,
+	0xFF23	/* FULLWIDTH LATIN CAPITAL LETTER C */,	KanaWidthFoldingCpListFF23,	1,	TQU("\x0043")	/* LATIN CAPITAL LETTER C */,
+	0xFF24	/* FULLWIDTH LATIN CAPITAL LETTER D */,	KanaWidthFoldingCpListFF24,	1,	TQU("\x0044")	/* LATIN CAPITAL LETTER D */,
+	0xFF25	/* FULLWIDTH LATIN CAPITAL LETTER E */,	KanaWidthFoldingCpListFF25,	1,	TQU("\x0045")	/* LATIN CAPITAL LETTER E */,
+	0xFF26	/* FULLWIDTH LATIN CAPITAL LETTER F */,	KanaWidthFoldingCpListFF26,	1,	TQU("\x0046")	/* LATIN CAPITAL LETTER F */,
+	0xFF27	/* FULLWIDTH LATIN CAPITAL LETTER G */,	KanaWidthFoldingCpListFF27,	1,	TQU("\x0047")	/* LATIN CAPITAL LETTER G */,
+	0xFF28	/* FULLWIDTH LATIN CAPITAL LETTER H */,	KanaWidthFoldingCpListFF28,	1,	TQU("\x0048")	/* LATIN CAPITAL LETTER H */,
+	0xFF29	/* FULLWIDTH LATIN CAPITAL LETTER I */,	KanaWidthFoldingCpListFF29,	1,	TQU("\x0049")	/* LATIN CAPITAL LETTER I */,
+	0xFF2A	/* FULLWIDTH LATIN CAPITAL LETTER J */,	KanaWidthFoldingCpListFF2A,	1,	TQU("\x004A")	/* LATIN CAPITAL LETTER J */,
+	0xFF2B	/* FULLWIDTH LATIN CAPITAL LETTER K */,	KanaWidthFoldingCpListFF2B,	1,	TQU("\x004B")	/* LATIN CAPITAL LETTER K */,
+	0xFF2C	/* FULLWIDTH LATIN CAPITAL LETTER L */,	KanaWidthFoldingCpListFF2C,	1,	TQU("\x004C")	/* LATIN CAPITAL LETTER L */,
+	0xFF2D	/* FULLWIDTH LATIN CAPITAL LETTER M */,	KanaWidthFoldingCpListFF2D,	1,	TQU("\x004D")	/* LATIN CAPITAL LETTER M */,
+	0xFF2E	/* FULLWIDTH LATIN CAPITAL LETTER N */,	KanaWidthFoldingCpListFF2E,	1,	TQU("\x004E")	/* LATIN CAPITAL LETTER N */,
+	0xFF2F	/* FULLWIDTH LATIN CAPITAL LETTER O */,	KanaWidthFoldingCpListFF2F,	1,	TQU("\x004F")	/* LATIN CAPITAL LETTER O */,
+	0xFF30	/* FULLWIDTH LATIN CAPITAL LETTER P */,	KanaWidthFoldingCpListFF30,	1,	TQU("\x0050")	/* LATIN CAPITAL LETTER P */,
+	0xFF31	/* FULLWIDTH LATIN CAPITAL LETTER Q */,	KanaWidthFoldingCpListFF31,	1,	TQU("\x0051")	/* LATIN CAPITAL LETTER Q */,
+	0xFF32	/* FULLWIDTH LATIN CAPITAL LETTER R */,	KanaWidthFoldingCpListFF32,	1,	TQU("\x0052")	/* LATIN CAPITAL LETTER R */,
+	0xFF33	/* FULLWIDTH LATIN CAPITAL LETTER S */,	KanaWidthFoldingCpListFF33,	1,	TQU("\x0053")	/* LATIN CAPITAL LETTER S */,
+	0xFF34	/* FULLWIDTH LATIN CAPITAL LETTER T */,	KanaWidthFoldingCpListFF34,	1,	TQU("\x0054")	/* LATIN CAPITAL LETTER T */,
+	0xFF35	/* FULLWIDTH LATIN CAPITAL LETTER U */,	KanaWidthFoldingCpListFF35,	1,	TQU("\x0055")	/* LATIN CAPITAL LETTER U */,
+	0xFF36	/* FULLWIDTH LATIN CAPITAL LETTER V */,	KanaWidthFoldingCpListFF36,	1,	TQU("\x0056")	/* LATIN CAPITAL LETTER V */,
+	0xFF37	/* FULLWIDTH LATIN CAPITAL LETTER W */,	KanaWidthFoldingCpListFF37,	1,	TQU("\x0057")	/* LATIN CAPITAL LETTER W */,
+	0xFF38	/* FULLWIDTH LATIN CAPITAL LETTER X */,	KanaWidthFoldingCpListFF38,	1,	TQU("\x0058")	/* LATIN CAPITAL LETTER X */,
+	0xFF39	/* FULLWIDTH LATIN CAPITAL LETTER Y */,	KanaWidthFoldingCpListFF39,	1,	TQU("\x0059")	/* LATIN CAPITAL LETTER Y */,
+	0xFF3A	/* FULLWIDTH LATIN CAPITAL LETTER Z */,	KanaWidthFoldingCpListFF3A,	1,	TQU("\x005A")	/* LATIN CAPITAL LETTER Z */,
+	0xFF3B	/* FULLWIDTH LEFT SQUARE BRACKET */,	KanaWidthFoldingCpListFF3B,	1,	TQU("\x005B")	/* LEFT SQUARE BRACKET */,
+	0xFF3C	/* FULLWIDTH REVERSE SOLIDUS */,	KanaWidthFoldingCpListFF3C,	1,	TQU("\x005C")	/* REVERSE SOLIDUS */,
+	0xFF3D	/* FULLWIDTH RIGHT SQUARE BRACKET */,	KanaWidthFoldingCpListFF3D,	1,	TQU("\x005D")	/* RIGHT SQUARE BRACKET */,
+	0xFF3E	/* FULLWIDTH CIRCUMFLEX ACCENT */,	KanaWidthFoldingCpListFF3E,	1,	TQU("\x005E")	/* CIRCUMFLEX ACCENT */,
+	0xFF3F	/* FULLWIDTH LOW LINE */,	KanaWidthFoldingCpListFF3F,	1,	TQU("\x005F")	/* LOW LINE */,
+	0xFF40	/* FULLWIDTH GRAVE ACCENT */,	KanaWidthFoldingCpListFF40,	1,	TQU("\x0060")	/* GRAVE ACCENT */,
+	0xFF41	/* FULLWIDTH LATIN SMALL LETTER A */,	KanaWidthFoldingCpListFF41,	1,	TQU("\x0061")	/* LATIN SMALL LETTER A */,
+	0xFF42	/* FULLWIDTH LATIN SMALL LETTER B */,	KanaWidthFoldingCpListFF42,	1,	TQU("\x0062")	/* LATIN SMALL LETTER B */,
+	0xFF43	/* FULLWIDTH LATIN SMALL LETTER C */,	KanaWidthFoldingCpListFF43,	1,	TQU("\x0063")	/* LATIN SMALL LETTER C */,
+	0xFF44	/* FULLWIDTH LATIN SMALL LETTER D */,	KanaWidthFoldingCpListFF44,	1,	TQU("\x0064")	/* LATIN SMALL LETTER D */,
+	0xFF45	/* FULLWIDTH LATIN SMALL LETTER E */,	KanaWidthFoldingCpListFF45,	1,	TQU("\x0065")	/* LATIN SMALL LETTER E */,
+	0xFF46	/* FULLWIDTH LATIN SMALL LETTER F */,	KanaWidthFoldingCpListFF46,	1,	TQU("\x0066")	/* LATIN SMALL LETTER F */,
+	0xFF47	/* FULLWIDTH LATIN SMALL LETTER G */,	KanaWidthFoldingCpListFF47,	1,	TQU("\x0067")	/* LATIN SMALL LETTER G */,
+	0xFF48	/* FULLWIDTH LATIN SMALL LETTER H */,	KanaWidthFoldingCpListFF48,	1,	TQU("\x0068")	/* LATIN SMALL LETTER H */,
+	0xFF49	/* FULLWIDTH LATIN SMALL LETTER I */,	KanaWidthFoldingCpListFF49,	1,	TQU("\x0069")	/* LATIN SMALL LETTER I */,
+	0xFF4A	/* FULLWIDTH LATIN SMALL LETTER J */,	KanaWidthFoldingCpListFF4A,	1,	TQU("\x006A")	/* LATIN SMALL LETTER J */,
+	0xFF4B	/* FULLWIDTH LATIN SMALL LETTER K */,	KanaWidthFoldingCpListFF4B,	1,	TQU("\x006B")	/* LATIN SMALL LETTER K */,
+	0xFF4C	/* FULLWIDTH LATIN SMALL LETTER L */,	KanaWidthFoldingCpListFF4C,	1,	TQU("\x006C")	/* LATIN SMALL LETTER L */,
+	0xFF4D	/* FULLWIDTH LATIN SMALL LETTER M */,	KanaWidthFoldingCpListFF4D,	1,	TQU("\x006D")	/* LATIN SMALL LETTER M */,
+	0xFF4E	/* FULLWIDTH LATIN SMALL LETTER N */,	KanaWidthFoldingCpListFF4E,	1,	TQU("\x006E")	/* LATIN SMALL LETTER N */,
+	0xFF4F	/* FULLWIDTH LATIN SMALL LETTER O */,	KanaWidthFoldingCpListFF4F,	1,	TQU("\x006F")	/* LATIN SMALL LETTER O */,
+	0xFF50	/* FULLWIDTH LATIN SMALL LETTER P */,	KanaWidthFoldingCpListFF50,	1,	TQU("\x0070")	/* LATIN SMALL LETTER P */,
+	0xFF51	/* FULLWIDTH LATIN SMALL LETTER Q */,	KanaWidthFoldingCpListFF51,	1,	TQU("\x0071")	/* LATIN SMALL LETTER Q */,
+	0xFF52	/* FULLWIDTH LATIN SMALL LETTER R */,	KanaWidthFoldingCpListFF52,	1,	TQU("\x0072")	/* LATIN SMALL LETTER R */,
+	0xFF53	/* FULLWIDTH LATIN SMALL LETTER S */,	KanaWidthFoldingCpListFF53,	1,	TQU("\x0073")	/* LATIN SMALL LETTER S */,
+	0xFF54	/* FULLWIDTH LATIN SMALL LETTER T */,	KanaWidthFoldingCpListFF54,	1,	TQU("\x0074")	/* LATIN SMALL LETTER T */,
+	0xFF55	/* FULLWIDTH LATIN SMALL LETTER U */,	KanaWidthFoldingCpListFF55,	1,	TQU("\x0075")	/* LATIN SMALL LETTER U */,
+	0xFF56	/* FULLWIDTH LATIN SMALL LETTER V */,	KanaWidthFoldingCpListFF56,	1,	TQU("\x0076")	/* LATIN SMALL LETTER V */,
+	0xFF57	/* FULLWIDTH LATIN SMALL LETTER W */,	KanaWidthFoldingCpListFF57,	1,	TQU("\x0077")	/* LATIN SMALL LETTER W */,
+	0xFF58	/* FULLWIDTH LATIN SMALL LETTER X */,	KanaWidthFoldingCpListFF58,	1,	TQU("\x0078")	/* LATIN SMALL LETTER X */,
+	0xFF59	/* FULLWIDTH LATIN SMALL LETTER Y */,	KanaWidthFoldingCpListFF59,	1,	TQU("\x0079")	/* LATIN SMALL LETTER Y */,
+	0xFF5A	/* FULLWIDTH LATIN SMALL LETTER Z */,	KanaWidthFoldingCpListFF5A,	1,	TQU("\x007A")	/* LATIN SMALL LETTER Z */,
+	0xFF5B	/* FULLWIDTH LEFT CURLY BRACKET */,	KanaWidthFoldingCpListFF5B,	1,	TQU("\x007B")	/* LEFT CURLY BRACKET */,
+	0xFF5C	/* FULLWIDTH VERTICAL LINE */,	KanaWidthFoldingCpListFF5C,	1,	TQU("\x007C")	/* VERTICAL LINE */,
+	0xFF5D	/* FULLWIDTH RIGHT CURLY BRACKET */,	KanaWidthFoldingCpListFF5D,	1,	TQU("\x007D")	/* RIGHT CURLY BRACKET */,
+	0xFF5E	/* FULLWIDTH TILDE */,	KanaWidthFoldingCpListFF5E,	1,	TQU("\x007E")	/* TILDE */,
+	0xFF5F	/* FULLWIDTH LEFT WHITE PARENTHESIS */,	KanaWidthFoldingCpListFF5F,	1,	TQU("\x2985")	/* LEFT WHITE PARENTHESIS */,
+	0xFF60	/* FULLWIDTH RIGHT WHITE PARENTHESIS */,	KanaWidthFoldingCpListFF60,	1,	TQU("\x2986")	/* RIGHT WHITE PARENTHESIS */,
+	0xFF61	/* HALFWIDTH IDEOGRAPHIC FULL STOP */,	KanaWidthFoldingCpListFF61,	1,	TQU("\x3002")	/* IDEOGRAPHIC FULL STOP */,
+	0xFF62	/* HALFWIDTH LEFT CORNER BRACKET */,	KanaWidthFoldingCpListFF62,	1,	TQU("\x300C")	/* LEFT CORNER BRACKET */,
+	0xFF63	/* HALFWIDTH RIGHT CORNER BRACKET */,	KanaWidthFoldingCpListFF63,	1,	TQU("\x300D")	/* RIGHT CORNER BRACKET */,
+	0xFF64	/* HALFWIDTH IDEOGRAPHIC COMMA */,	KanaWidthFoldingCpListFF64,	1,	TQU("\x3001")	/* IDEOGRAPHIC COMMA */,
+	0xFF65	/* HALFWIDTH KATAKANA MIDDLE DOT */,	KanaWidthFoldingCpListFF65,	1,	TQU("\x30FB")	/* KATAKANA MIDDLE DOT */,
+	0xFF66	/* HALFWIDTH KATAKANA LETTER WO */,	KanaWidthFoldingCpListFF66,	1,	TQU("\x30F2")	/* KATAKANA LETTER WO */,
+	0xFF67	/* HALFWIDTH KATAKANA LETTER SMALL A */,	KanaWidthFoldingCpListFF67,	1,	TQU("\x30A1")	/* KATAKANA LETTER SMALL A */,
+	0xFF68	/* HALFWIDTH KATAKANA LETTER SMALL I */,	KanaWidthFoldingCpListFF68,	1,	TQU("\x30A3")	/* KATAKANA LETTER SMALL I */,
+	0xFF69	/* HALFWIDTH KATAKANA LETTER SMALL U */,	KanaWidthFoldingCpListFF69,	1,	TQU("\x30A5")	/* KATAKANA LETTER SMALL U */,
+	0xFF6A	/* HALFWIDTH KATAKANA LETTER SMALL E */,	KanaWidthFoldingCpListFF6A,	1,	TQU("\x30A7")	/* KATAKANA LETTER SMALL E */,
+	0xFF6B	/* HALFWIDTH KATAKANA LETTER SMALL O */,	KanaWidthFoldingCpListFF6B,	1,	TQU("\x30A9")	/* KATAKANA LETTER SMALL O */,
+	0xFF6C	/* HALFWIDTH KATAKANA LETTER SMALL YA */,	KanaWidthFoldingCpListFF6C,	1,	TQU("\x30E3")	/* KATAKANA LETTER SMALL YA */,
+	0xFF6D	/* HALFWIDTH KATAKANA LETTER SMALL YU */,	KanaWidthFoldingCpListFF6D,	1,	TQU("\x30E5")	/* KATAKANA LETTER SMALL YU */,
+	0xFF6E	/* HALFWIDTH KATAKANA LETTER SMALL YO */,	KanaWidthFoldingCpListFF6E,	1,	TQU("\x30E7")	/* KATAKANA LETTER SMALL YO */,
+	0xFF6F	/* HALFWIDTH KATAKANA LETTER SMALL TU */,	KanaWidthFoldingCpListFF6F,	1,	TQU("\x30C3")	/* KATAKANA LETTER SMALL TU */,
+	0xFF70	/* HALFWIDTH KATAKANA-HIRAGANA PROLONGED SOUND MARK */,	KanaWidthFoldingCpListFF70,	1,	TQU("\x30FC")	/* KATAKANA-HIRAGANA PROLONGED SOUND MARK */,
+	0xFF71	/* HALFWIDTH KATAKANA LETTER A */,	KanaWidthFoldingCpListFF71,	1,	TQU("\x30A2")	/* KATAKANA LETTER A */,
+	0xFF72	/* HALFWIDTH KATAKANA LETTER I */,	KanaWidthFoldingCpListFF72,	1,	TQU("\x30A4")	/* KATAKANA LETTER I */,
+	0xFF73	/* HALFWIDTH KATAKANA LETTER U */,	KanaWidthFoldingCpListFF73,	1,	TQU("\x30A6")	/* KATAKANA LETTER U */,
+	0xFF74	/* HALFWIDTH KATAKANA LETTER E */,	KanaWidthFoldingCpListFF74,	1,	TQU("\x30A8")	/* KATAKANA LETTER E */,
+	0xFF75	/* HALFWIDTH KATAKANA LETTER O */,	KanaWidthFoldingCpListFF75,	1,	TQU("\x30AA")	/* KATAKANA LETTER O */,
+	0xFF76	/* HALFWIDTH KATAKANA LETTER KA */,	KanaWidthFoldingCpListFF76,	1,	TQU("\x30AB")	/* KATAKANA LETTER KA */,
+	0xFF77	/* HALFWIDTH KATAKANA LETTER KI */,	KanaWidthFoldingCpListFF77,	1,	TQU("\x30AD")	/* KATAKANA LETTER KI */,
+	0xFF78	/* HALFWIDTH KATAKANA LETTER KU */,	KanaWidthFoldingCpListFF78,	1,	TQU("\x30AF")	/* KATAKANA LETTER KU */,
+	0xFF79	/* HALFWIDTH KATAKANA LETTER KE */,	KanaWidthFoldingCpListFF79,	1,	TQU("\x30B1")	/* KATAKANA LETTER KE */,
+	0xFF7A	/* HALFWIDTH KATAKANA LETTER KO */,	KanaWidthFoldingCpListFF7A,	1,	TQU("\x30B3")	/* KATAKANA LETTER KO */,
+	0xFF7B	/* HALFWIDTH KATAKANA LETTER SA */,	KanaWidthFoldingCpListFF7B,	1,	TQU("\x30B5")	/* KATAKANA LETTER SA */,
+	0xFF7C	/* HALFWIDTH KATAKANA LETTER SI */,	KanaWidthFoldingCpListFF7C,	1,	TQU("\x30B7")	/* KATAKANA LETTER SI */,
+	0xFF7D	/* HALFWIDTH KATAKANA LETTER SU */,	KanaWidthFoldingCpListFF7D,	1,	TQU("\x30B9")	/* KATAKANA LETTER SU */,
+	0xFF7E	/* HALFWIDTH KATAKANA LETTER SE */,	KanaWidthFoldingCpListFF7E,	1,	TQU("\x30BB")	/* KATAKANA LETTER SE */,
+	0xFF7F	/* HALFWIDTH KATAKANA LETTER SO */,	KanaWidthFoldingCpListFF7F,	1,	TQU("\x30BD")	/* KATAKANA LETTER SO */,
+	0xFF80	/* HALFWIDTH KATAKANA LETTER TA */,	KanaWidthFoldingCpListFF80,	1,	TQU("\x30BF")	/* KATAKANA LETTER TA */,
+	0xFF81	/* HALFWIDTH KATAKANA LETTER TI */,	KanaWidthFoldingCpListFF81,	1,	TQU("\x30C1")	/* KATAKANA LETTER TI */,
+	0xFF82	/* HALFWIDTH KATAKANA LETTER TU */,	KanaWidthFoldingCpListFF82,	1,	TQU("\x30C4")	/* KATAKANA LETTER TU */,
+	0xFF83	/* HALFWIDTH KATAKANA LETTER TE */,	KanaWidthFoldingCpListFF83,	1,	TQU("\x30C6")	/* KATAKANA LETTER TE */,
+	0xFF84	/* HALFWIDTH KATAKANA LETTER TO */,	KanaWidthFoldingCpListFF84,	1,	TQU("\x30C8")	/* KATAKANA LETTER TO */,
+	0xFF85	/* HALFWIDTH KATAKANA LETTER NA */,	KanaWidthFoldingCpListFF85,	1,	TQU("\x30CA")	/* KATAKANA LETTER NA */,
+	0xFF86	/* HALFWIDTH KATAKANA LETTER NI */,	KanaWidthFoldingCpListFF86,	1,	TQU("\x30CB")	/* KATAKANA LETTER NI */,
+	0xFF87	/* HALFWIDTH KATAKANA LETTER NU */,	KanaWidthFoldingCpListFF87,	1,	TQU("\x30CC")	/* KATAKANA LETTER NU */,
+	0xFF88	/* HALFWIDTH KATAKANA LETTER NE */,	KanaWidthFoldingCpListFF88,	1,	TQU("\x30CD")	/* KATAKANA LETTER NE */,
+	0xFF89	/* HALFWIDTH KATAKANA LETTER NO */,	KanaWidthFoldingCpListFF89,	1,	TQU("\x30CE")	/* KATAKANA LETTER NO */,
+	0xFF8A	/* HALFWIDTH KATAKANA LETTER HA */,	KanaWidthFoldingCpListFF8A,	1,	TQU("\x30CF")	/* KATAKANA LETTER HA */,
+	0xFF8B	/* HALFWIDTH KATAKANA LETTER HI */,	KanaWidthFoldingCpListFF8B,	1,	TQU("\x30D2")	/* KATAKANA LETTER HI */,
+	0xFF8C	/* HALFWIDTH KATAKANA LETTER HU */,	KanaWidthFoldingCpListFF8C,	1,	TQU("\x30D5")	/* KATAKANA LETTER HU */,
+	0xFF8D	/* HALFWIDTH KATAKANA LETTER HE */,	KanaWidthFoldingCpListFF8D,	1,	TQU("\x30D8")	/* KATAKANA LETTER HE */,
+	0xFF8E	/* HALFWIDTH KATAKANA LETTER HO */,	KanaWidthFoldingCpListFF8E,	1,	TQU("\x30DB")	/* KATAKANA LETTER HO */,
+	0xFF8F	/* HALFWIDTH KATAKANA LETTER MA */,	KanaWidthFoldingCpListFF8F,	1,	TQU("\x30DE")	/* KATAKANA LETTER MA */,
+	0xFF90	/* HALFWIDTH KATAKANA LETTER MI */,	KanaWidthFoldingCpListFF90,	1,	TQU("\x30DF")	/* KATAKANA LETTER MI */,
+	0xFF91	/* HALFWIDTH KATAKANA LETTER MU */,	KanaWidthFoldingCpListFF91,	1,	TQU("\x30E0")	/* KATAKANA LETTER MU */,
+	0xFF92	/* HALFWIDTH KATAKANA LETTER ME */,	KanaWidthFoldingCpListFF92,	1,	TQU("\x30E1")	/* KATAKANA LETTER ME */,
+	0xFF93	/* HALFWIDTH KATAKANA LETTER MO */,	KanaWidthFoldingCpListFF93,	1,	TQU("\x30E2")	/* KATAKANA LETTER MO */,
+	0xFF94	/* HALFWIDTH KATAKANA LETTER YA */,	KanaWidthFoldingCpListFF94,	1,	TQU("\x30E4")	/* KATAKANA LETTER YA */,
+	0xFF95	/* HALFWIDTH KATAKANA LETTER YU */,	KanaWidthFoldingCpListFF95,	1,	TQU("\x30E6")	/* KATAKANA LETTER YU */,
+	0xFF96	/* HALFWIDTH KATAKANA LETTER YO */,	KanaWidthFoldingCpListFF96,	1,	TQU("\x30E8")	/* KATAKANA LETTER YO */,
+	0xFF97	/* HALFWIDTH KATAKANA LETTER RA */,	KanaWidthFoldingCpListFF97,	1,	TQU("\x30E9")	/* KATAKANA LETTER RA */,
+	0xFF98	/* HALFWIDTH KATAKANA LETTER RI */,	KanaWidthFoldingCpListFF98,	1,	TQU("\x30EA")	/* KATAKANA LETTER RI */,
+	0xFF99	/* HALFWIDTH KATAKANA LETTER RU */,	KanaWidthFoldingCpListFF99,	1,	TQU("\x30EB")	/* KATAKANA LETTER RU */,
+	0xFF9A	/* HALFWIDTH KATAKANA LETTER RE */,	KanaWidthFoldingCpListFF9A,	1,	TQU("\x30EC")	/* KATAKANA LETTER RE */,
+	0xFF9B	/* HALFWIDTH KATAKANA LETTER RO */,	KanaWidthFoldingCpListFF9B,	1,	TQU("\x30ED")	/* KATAKANA LETTER RO */,
+	0xFF9C	/* HALFWIDTH KATAKANA LETTER WA */,	KanaWidthFoldingCpListFF9C,	1,	TQU("\x30EF")	/* KATAKANA LETTER WA */,
+	0xFF9D	/* HALFWIDTH KATAKANA LETTER N */,	KanaWidthFoldingCpListFF9D,	1,	TQU("\x30F3")	/* KATAKANA LETTER N */,
+	0xFF9E	/* HALFWIDTH KATAKANA VOICED SOUND MARK */,	KanaWidthFoldingCpListFF9E,	1,	TQU("\x309B")	/* KATAKANA-HIRAGANA VOICED SOUND MARK */,
+	0xFF9F	/* HALFWIDTH KATAKANA SEMI-VOICED SOUND MARK */,	KanaWidthFoldingCpListFF9F,	1,	TQU("\x309C")	/* KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK */,
+	0xFFE0	/* FULLWIDTH CENT SIGN */,	KanaWidthFoldingCpListFFE0,	1,	TQU("\x00A2")	/* CENT SIGN */,
+	0xFFE1	/* FULLWIDTH POUND SIGN */,	KanaWidthFoldingCpListFFE1,	1,	TQU("\x00A3")	/* POUND SIGN */,
+	0xFFE2	/* FULLWIDTH NOT SIGN */,	KanaWidthFoldingCpListFFE2,	1,	TQU("\x00AC")	/* NOT SIGN */,
+	0xFFE3	/* FULLWIDTH MACRON */,	KanaWidthFoldingCpListFFE3,	1,	TQU("\x00AF")	/* MACRON */,
+	0xFFE4	/* FULLWIDTH BROKEN BAR */,	KanaWidthFoldingCpListFFE4,	1,	TQU("\x00A6")	/* BROKEN BAR */,
+	0xFFE5	/* FULLWIDTH YEN SIGN */,	KanaWidthFoldingCpListFFE5,	1,	TQU("\x00A5")	/* YEN SIGN */,
+	0xFFE6	/* FULLWIDTH WON SIGN */,	KanaWidthFoldingCpListFFE6,	1,	TQU("\x20A9")	/* WON SIGN */,
+	0xFFE8	/* HALFWIDTH FORMS LIGHT VERTICAL */,	KanaWidthFoldingCpListFFE8,	1,	TQU("\x2502")	/* BOX DRAWINGS LIGHT VERTICAL */,
+	0xFFE9	/* HALFWIDTH LEFTWARDS ARROW */,	KanaWidthFoldingCpListFFE9,	1,	TQU("\x2190")	/* LEFTWARDS ARROW */,
+	0xFFEA	/* HALFWIDTH UPWARDS ARROW */,	KanaWidthFoldingCpListFFEA,	1,	TQU("\x2191")	/* UPWARDS ARROW */,
+	0xFFEB	/* HALFWIDTH RIGHTWARDS ARROW */,	KanaWidthFoldingCpListFFEB,	1,	TQU("\x2192")	/* RIGHTWARDS ARROW */,
+	0xFFEC	/* HALFWIDTH DOWNWARDS ARROW */,	KanaWidthFoldingCpListFFEC,	1,	TQU("\x2193")	/* DOWNWARDS ARROW */,
+	0xFFED	/* HALFWIDTH BLACK SQUARE */,	KanaWidthFoldingCpListFFED,	1,	TQU("\x25A0")	/* BLACK SQUARE */,
+	0xFFEE	/* HALFWIDTH WHITE CIRCLE */,	KanaWidthFoldingCpListFFEE,	1,	TQU("\x25CB")	/* WHITE CIRCLE */,
+};
+int	nCStrMapKanaWidth	= sizeof(siCStrMapKanaWidth) / sizeof(SCSTRMAP);
+
+
+//======================================================================
+//	KanaWidthFolding	(1)	1 つのコードページの変換
+//======================================================================
+//----------------------------------------------------------------------
+//	KanaWidthFolding	(1-1)
+//----------------------------------------------------------------------
+bool KanaWidthFolding(T_UCP* puiDst, T_UCP cpSrc)
+{
+	T_UCP		uiFound;
+
+	if (!PUCD_BMPTABLE_IS_IKANAWIDTH_SET(cpSrc))	return false;
+
+	if (PLib::BinarySearch<SCSTRMAP, T_UCP>(
+		&uiFound, siCStrMapKanaWidth, nCStrMapKanaWidth, cpSrc))
+	{
+		*puiDst	= *(siCStrMapKanaWidth[uiFound].pCpDst);
+		return true;
+	}
+	return false;
+}
+
+//----------------------------------------------------------------------
+//	KanaWidthFolding	(1-2)
+//----------------------------------------------------------------------
+T_UCP KanaWidthFolding(T_UCP cpSrc)
+{
+	T_UCP		uiFound;
+
+	if (!PUCD_BMPTABLE_IS_IKANAWIDTH_SET(cpSrc))	return cpSrc;
+
+	if (PLib::BinarySearch<SCSTRMAP, T_UCP>(
+		&uiFound, siCStrMapKanaWidth, nCStrMapKanaWidth, cpSrc))
+	{
+		return *(siCStrMapKanaWidth[uiFound].pCpDst);
+	}
+	return cpSrc;
+}
+
+//======================================================================
+//	KanaWidthFolding	(2)	1 つのコードページ -> Unicode 文字列
+//======================================================================
+bool KanaWidthFolding(T_PCSTR_U* ppszDst, T_UCP cpSrc)
+{
+	T_UCP		uiFound;
+
+	if (PLib::BinarySearch<SCSTRMAP, T_UCP>(
+		&uiFound, siCStrMapKanaWidth, nCStrMapKanaWidth, cpSrc))
+	{
+		*ppszDst	= siCStrMapKanaWidth[uiFound].pszDst;
+		return true;
+	}
+	return false;
+}
+
+//======================================================================
+//	KanaWidthFolding	(3)	文字列の変換
+//======================================================================
+//----------------------------------------------------------------------
+//	KanaWidthFolding	(3-1)	Codepage 列の変換
+//----------------------------------------------------------------------
+bool KanaWidthFolding(UCPSTRING* pucsDst, UCPSTRING* pucsSrc)
+{
+	const T_UCP*	pcp;
+
+	for (pcp = pucsSrc->c_str(); *pcp; ++pcp)
+	{
+		pucsDst->append(1, KanaWidthFolding(*pcp));
+	}
+	return true;
+}
+
+//----------------------------------------------------------------------
+//	KanaWidthFolding	(3-2)	Unicode 文字列 -> Codepage 列
+//----------------------------------------------------------------------
+bool KanaWidthFolding(UCPSTRING* pucsDst, T_PCSTR_U pSrcB, T_PCSTR_U pSrcE)
+{
+	UCPSTRING	uisTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&uisTemp, pSrcB, pSrcE))	return false;
+	return KanaWidthFolding(pucsDst, &uisTemp);
+}
+
+bool KanaWidthFolding(UCPSTRING* pucsDst, T_PCSTR_U pszSrc)
+{
+	UCPSTRING	uisTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&uisTemp, pszSrc))	return false;
+	return KanaWidthFolding(pucsDst, &uisTemp);
+}
+
+//----------------------------------------------------------------------
+//	KanaWidthFolding	(3-3)	Codepage 列 -> Unicode 文字列
+//----------------------------------------------------------------------
+bool KanaWidthFolding(T_STRING_U* pstrDst, UCPSTRING* pucsSrc)
+{
+	UCPSTRING	ucsTemp;
+
+	if (!PLib::Unicode::KanaWidthFolding(&ucsTemp, pucsSrc))	return false;
+	return PLib::Unicode::ConvertFromCodepoint(pstrDst, &ucsTemp);
+}
+
+//----------------------------------------------------------------------
+//	KanaWidthFolding	(3-4)	Unicode 文字列 -> Unicode 文字列
+//----------------------------------------------------------------------
+bool KanaWidthFolding(T_STRING_U* pstrDst, T_PCSTR_U pSrcB, T_PCSTR_U pSrcE)
+{
+	UCPSTRING	uisTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&uisTemp, pSrcB, pSrcE))	return false;
+	return KanaWidthFolding(pstrDst, &uisTemp);
+}
+
+bool KanaWidthFolding(T_STRING_U* pstrDst, T_PCSTR_U pszSrc)
+{
+	UCPSTRING	uisTemp;
+
+	if (!PLib::Unicode::ConvertToCodepoint(&uisTemp, pszSrc))	return false;
+	return KanaWidthFolding(pstrDst, &uisTemp);
+}
+
+
+//======================================================================
+//	デバッグ用
+//======================================================================
+#ifdef	PDEBUG
+void ExecTestKanaConversion(T_STRING_U* pstrTest, SCSTRMAP* pData, const size_t nData)
+{
+	T_PCSTR_U		pszDst;
+	T_STRING_U	strCpDst;
+	UINT*				pCpDst;
+	//int					nCp;
+	UINT				i;
+	T_CHAR_U		WCBuf[3];
+	T_PCSTR_U		pfmt_d	= TQU("%d");
+	T_PCSTR_U		pLF		= TQU("\r\n");
+	T_PCSTR_U		pHT		= TQU("\t");
+	T_PCSTR_U		pTrue	= TQU("○");
+	T_PCSTR_U		pFalse	= TQU("×");
+	int					nFalse;
+
+	nFalse	= 0;
+	for (i = 0; i < nData; ++i, ++pData)
+	{
+		strCpDst.clear();
+		pCpDst	= pData->pCpDst;
+		while (*pCpDst != 0)
+		{
+			if (PLib::Unicode::ConvertFromCodepoint(WCBuf, *pCpDst))
+			{
+				strCpDst.append(WCBuf);
+			}
+			++pCpDst;
+		}
+
+		pszDst	= pData->pszDst;
+		if (PLib::t_StrCmp<T_CHAR_U, TRUE>(pszDst, strCpDst.c_str()))
+		{
+			pstrTest->append(pFalse);
+			++nFalse;
+		}
+		else
+		{
+			pstrTest->append(pTrue);
+		}
+		pstrTest->append(pHT);
+		pstrTest->append(pszDst);
+		pstrTest->append(pHT);
+		pstrTest->append(strCpDst);
+		pstrTest->append(pLF);
+	}
+	PLib::AppendNumToString<T_CHAR_U, int>(pstrTest, pfmt_d, nFalse);
+	pstrTest->append(TQU(" failed.\r\n\r\n"));
+}
+
+void TestKanaConversion()
+{
+	T_STRING_U	strTest;
+
+	//ExecTestKanaConversion(&strTest, siCStrMapKanaType, nCStrMapKanaType);
+	ExecTestKanaConversion(&strTest, siCStrMapKanaWidth, nCStrMapKanaWidth);
+}
+
+#endif
+NS_PLIB_UNICODE_END
